@@ -9,10 +9,16 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = (dispatch, {navigation}) => ({
-  onTap: song => {
+  onPress: song => {
     dispatch(startAudition(song))
     navigation.navigate(audition.player)
   }
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(SongList)
+const connected = connect(mapStateToProps, mapDispatchToProps)(SongList)
+
+connected.navigationOptions = {
+  title: 'Choose song'
+}
+
+export default connected

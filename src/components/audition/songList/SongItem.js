@@ -5,7 +5,7 @@ import {colors, fonts} from '../../../constants/styleVariables'
 const SongItem = ({data: {artist, title, album}, onPress}) => (
   <TouchableOpacity onPress={onPress}>
     <View style={styles.container}>
-      <Text style={styles.title}>{title}</Text>
+      <Text style={styles.title} numberOfLines={1} ellipsizeMode='tail'>{title}</Text>
       <Text style={styles.subtitle}>{artist}</Text>
       <Text style={styles.subtitle}>{album}</Text>
     </View>

@@ -19,7 +19,11 @@ export const loadUserSongs = () => async (dispatch: Dispatch) => {
   const userSongs = {}
 
   songs.forEach(section => {
-    userSongs[section.artist] = section.items
+    userSongs[section.artist] = section.items.sort((a, b) => {
+      if (a.album > b.album) return 1
+      if (a.album < b.album) return -1
+      return 0
+    })
   })
 
   dispatch({type: actionTypes.LOAD_USER_SONGS, userSongs})

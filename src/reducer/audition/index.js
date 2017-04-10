@@ -33,4 +33,4 @@ Object.keys(fromMissingWords).forEach(key => {
   module.exports[key] = state => fromMissingWords[key](state.missingWords)
 })
 
-export const getUserSongs = state => state.userSongs
+export const getUserSongs = state => state.userSongs || {}

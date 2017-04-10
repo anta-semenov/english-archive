@@ -15,7 +15,7 @@ const SongList = ({data, onPress}) => {
       renderRow={rowData => (
         <SongItem data={rowData} onPress={() => onPress(rowData)}/>
       )}
-      contentContainerStyle={styles.container}
+      style={styles.container}
     />
   )
 }
@@ -26,7 +26,8 @@ SongList.propTypes = {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: colors.first
+    backgroundColor: colors.first,
+    flex: 1
   }
 })
 

@@ -21,10 +21,12 @@ class MediaHelper: NSObject {
       return
     }
     
-    let userSongs = mediaQuery.collections!.map({(collection: MPMediaItemCollection) -> NSDictionary in
+    var userSongs = [NSDictionary]()
+    
+    for collection in mediaQuery.collections! {
       let artistCollection = NSMutableDictionary()
       
-      artistCollection.setValue(collection.representativeItem, forKey: "artist")
+      artistCollection.setValue(collection.representativeItem?.artist, forKey: "artist")
       artistCollection.setValue(
         collection.items.map({(mediaItem: MPMediaItem) -> NSDictionary in
           let song = NSMutableDictionary()
@@ -32,16 +34,22 @@ class MediaHelper: NSObject {
           song.setValue(mediaItem.artist, forKey: "artist")
           song.setValue(mediaItem.albumTitle, forKey: "album")
           song.setValue(mediaItem.title, forKey: "title")
-          song.setValue(mediaItem.assetURL, forKey: "assetUrl")
-          song.setValue(mediaItem.lyrics, forKey: "lyrics")
+          song.setValue(mediaItem.assetURL?.absoluteString, forKey: "assetUrl")
+          
+          if mediaItem.lyrics != nil {
+            song.setValue(mediaItem.lyrics, forKey: "lyrics")
+          } else {
+            let asset = AVAsset(url: mediaItem.assetURL!)
+            song.setValue(asset.lyrics, forKey: "lyrics")
+          }
           
           return song
         }),
         forKey: "items")
       
-      return artistCollection
-    })
-    
+      userSongs.append(artistCollection)
+    }
+
     resolver(userSongs)
   
   }
