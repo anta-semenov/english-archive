@@ -3,10 +3,12 @@ import {View, TouchableOpacity, Text, StyleSheet, Platform} from 'react-native'
 import {AlbumArtwork} from '../../common'
 import {colors, fonts, layout} from '../../../constants/styleVariables'
 
+const artworkSize = fonts.listItemTitleSize + 2 * fonts.listItemSubtitleSize + 2 * layout.spacer
+
 const SongItem = ({data: {artist, title, album, id}, onPress}) => (
   <TouchableOpacity onPress={onPress}>
     <View style={styles.container}>
-      <AlbumArtwork mediaItemId={id} style={styles.artwork}/>
+      <AlbumArtwork mediaItemId={id} style={styles.artwork} size={artworkSize}/>
       <View style={styles.infoContainer}>
         <Text style={styles.title} numberOfLines={1} ellipsizeMode='tail'>{title}</Text>
         <Text style={styles.subtitle}>{artist}</Text>
@@ -27,12 +29,13 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: colors.firstLight,
     flex: 1,
-    flexDirection: 'row'
+    flexDirection: 'row',
+    marginTop: layout.spacer
   },
   artwork: {
     marginRight: layout.spacer,
-    width: 50,
-    height: 50
+    width: artworkSize,
+    height: artworkSize
   },
   infoContainer: {
     flex: 1,
@@ -42,14 +45,14 @@ const styles = StyleSheet.create({
   title: {
     fontSize: fonts.listItemTitleSize,
     color: colors.second,
-    marginVertical: 8
+    marginBottom: layout.spacer
   },
   subtitle: {
     fontSize: fonts.listItemSubtitleSize,
     fontStyle: 'italic',
     color: colors.second,
     opacity: 0.8,
-    marginBottom: 8
+    marginBottom: layout.spacer
   }
 })
 

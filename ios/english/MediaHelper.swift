@@ -45,7 +45,7 @@ class MediaHelper: NSObject {
             let asset = AVAsset(url: mediaItem.assetURL!)
             song.setValue(asset.lyrics, forKey: "lyrics")
           }
-          print(song)
+          
           return song
         }),
         forKey: "items")
