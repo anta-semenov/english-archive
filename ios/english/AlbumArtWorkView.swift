@@ -51,6 +51,10 @@ class AlbumArtWorkView: UIImageView {
   
   init() {
     super.init(image: nil)
+    
+    self.layer.cornerRadius = 4
+    self.layer.masksToBounds = true
+    self.clipsToBounds = true
   }
   
   required init?(coder aDecoder: NSCoder) {

@@ -1,5 +1,5 @@
 import React from 'react'
-import {View, TouchableOpacity, Text, StyleSheet, Platform} from 'react-native'
+import {View, TouchableOpacity, Text, StyleSheet} from 'react-native'
 import {AlbumArtwork} from '../../common'
 import {colors, fonts, layout} from '../../../constants/styleVariables'
 
@@ -33,11 +33,12 @@ const styles = StyleSheet.create({
     marginTop: layout.spacer
   },
   artwork: {
-    marginRight: layout.spacer,
     width: artworkSize,
-    height: artworkSize
+    height: artworkSize,
+    backgroundColor: colors.first
   },
   infoContainer: {
+    marginLeft: layout.spacer,
     flex: 1,
     flexDirection: 'column',
     alignItems: 'stretch'

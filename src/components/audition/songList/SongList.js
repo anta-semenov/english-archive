@@ -1,6 +1,7 @@
 import React from 'react'
 import {ListView, StyleSheet} from 'react-native'
 import SongItem from './SongItem'
+import SongSectionHeader from './SongSectionHeader'
 import {colors} from '../../../constants/styleVariables'
 
 const SongList = ({data, onPress}) => {
@@ -15,6 +16,7 @@ const SongList = ({data, onPress}) => {
       renderRow={rowData => (
         <SongItem data={rowData} onPress={() => onPress(rowData)}/>
       )}
+      renderSectionHeader={sectionData => <SongSectionHeader data={sectionData}/>}
       style={styles.container}
     />
   )
