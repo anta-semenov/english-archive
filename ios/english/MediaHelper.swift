@@ -37,7 +37,7 @@ class MediaHelper: NSObject {
           song.setValue(mediaItem.albumTitle, forKey: "album")
           song.setValue(mediaItem.title, forKey: "title")
           song.setValue(mediaItem.assetURL?.absoluteString, forKey: "assetUrl")
-          song.setValue(mediaItem.persistentID, forKey: "id")
+          song.setValue("\(mediaItem.persistentID)", forKey: "id")
           
           if mediaItem.lyrics != nil {
             song.setValue(mediaItem.lyrics, forKey: "lyrics")
@@ -45,7 +45,7 @@ class MediaHelper: NSObject {
             let asset = AVAsset(url: mediaItem.assetURL!)
             song.setValue(asset.lyrics, forKey: "lyrics")
           }
-          
+          print(song)
           return song
         }),
         forKey: "items")

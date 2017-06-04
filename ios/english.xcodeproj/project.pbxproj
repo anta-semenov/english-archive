@@ -34,6 +34,8 @@
 		2D02E4C81E0B4AEC006451C7 /* libRCTWebSocket-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DAD3E991DF850E9000B6D8A /* libRCTWebSocket-tvOS.a */; };
 		2D02E4C91E0B4AEC006451C7 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DAD3EA31DF850E9000B6D8A /* libReact.a */; };
 		2DCD954D1E0B4F2C00145EB5 /* englishTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* englishTests.m */; };
+		3A3D1A7F1EE41BC300C8ED60 /* AlbumArtWorkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A3D1A7E1EE41BC300C8ED60 /* AlbumArtWorkView.swift */; };
+		3A3D1A9A1EE422F900C8ED60 /* AlbumArtworkViewManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A3D1A991EE422F900C8ED60 /* AlbumArtworkViewManager.m */; };
 		3A8714621E9ABB59003BB573 /* MediaHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A8714601E9ABB59003BB573 /* MediaHelper.swift */; };
 		3A8714631E9ABB59003BB573 /* MediaHelperBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A8714611E9ABB59003BB573 /* MediaHelperBridge.m */; };
 		5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
@@ -254,6 +256,8 @@
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
 		2D02E47B1E0B4A5D006451C7 /* english-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "english-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* english-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "english-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3A3D1A7E1EE41BC300C8ED60 /* AlbumArtWorkView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AlbumArtWorkView.swift; path = english/AlbumArtWorkView.swift; sourceTree = "<group>"; };
+		3A3D1A991EE422F900C8ED60 /* AlbumArtworkViewManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AlbumArtworkViewManager.m; path = english/AlbumArtworkViewManager.m; sourceTree = "<group>"; };
 		3A8714461E9ABB58003BB573 /* english-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "english-Bridging-Header.h"; sourceTree = "<group>"; };
 		3A8714601E9ABB59003BB573 /* MediaHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MediaHelper.swift; path = english/MediaHelper.swift; sourceTree = "<group>"; };
 		3A8714611E9ABB59003BB573 /* MediaHelperBridge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MediaHelperBridge.m; path = english/MediaHelperBridge.m; sourceTree = "<group>"; };
@@ -404,6 +408,8 @@
 				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
 				13B07FB71A68108700A75B9A /* main.m */,
 				3A8714461E9ABB58003BB573 /* english-Bridging-Header.h */,
+				3A3D1A7E1EE41BC300C8ED60 /* AlbumArtWorkView.swift */,
+				3A3D1A991EE422F900C8ED60 /* AlbumArtworkViewManager.m */,
 			);
 			name = english;
 			sourceTree = "<group>";
@@ -919,9 +925,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				3A8714621E9ABB59003BB573 /* MediaHelper.swift in Sources */,
+				3A3D1A9A1EE422F900C8ED60 /* AlbumArtworkViewManager.m in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 				3A8714631E9ABB59003BB573 /* MediaHelperBridge.m in Sources */,
+				3A3D1A7F1EE41BC300C8ED60 /* AlbumArtWorkView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

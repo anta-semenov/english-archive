@@ -35,3 +35,14 @@ export const fonts = {
     }
   })
 }
+
+export const layout = {
+  ...Platform.select({
+    ios: {
+      spacer: 8
+    },
+    android: {
+      spacer: 16
+    }
+  })
+}
