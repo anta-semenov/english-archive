@@ -12,6 +12,8 @@ import MediaPlayer
 
 @objc(MediaHelper)
 class MediaHelper: NSObject {
+  var _player: AVAudioPlayer?
+  
   @objc func getUserSongs(_ resolver: RCTPromiseResolveBlock, rejecter reject: RCTPromiseRejectBlock) -> Void {
     let mediaQuery = MPMediaQuery.artists()
     mediaQuery.groupingType = MPMediaGrouping.albumArtist
@@ -35,6 +37,7 @@ class MediaHelper: NSObject {
           song.setValue(mediaItem.albumTitle, forKey: "album")
           song.setValue(mediaItem.title, forKey: "title")
           song.setValue(mediaItem.assetURL?.absoluteString, forKey: "assetUrl")
+          song.setValue(mediaItem.persistentID, forKey: "id")
           
           if mediaItem.lyrics != nil {
             song.setValue(mediaItem.lyrics, forKey: "lyrics")
@@ -54,7 +57,39 @@ class MediaHelper: NSObject {
   
   }
   
-  @objc func playSong(_ assetUrl: NSString) -> Void {
-    
+  @objc func playSong(_ assetUrl: String) -> Void {
+    do {
+      let url = URL(string: assetUrl)
+      try _player = AVAudioPlayer(contentsOf: url!)
+      _player!.prepareToPlay()
+      _player!.play()
+    } catch let error as NSError {
+      print((error as NSError).localizedDescription)
+    }
   }
+  
+  @objc func pauseSong() -> Void {
+    _player?.pause()
+  }
+  
+  @objc func resumeSong() -> Void {
+    _player?.play()
+  }
+  
+  @objc func stopSong() -> Void {
+    _player?.stop()
+  }
+  
+  @objc func repeatSong(_ interval: Int) -> Void {
+    if _player == nil {
+      return
+    }
+    
+    _player!.pause()
+    let repeatPosition = max(_player!.currentTime - Double(interval), 0)
+    _player!.currentTime = repeatPosition
+    _player!.play()
+  }
+  
+  
 }

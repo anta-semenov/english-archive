@@ -15,5 +15,12 @@ RCT_EXTERN_METHOD(getUserSongs:(RCTPromiseResolveBlock *)resolve rejecter:(RCTPr
 
 RCT_EXTERN_METHOD(playSong:(NSString *)assetUrl)
 
+RCT_EXTERN_METHOD(pauseSong)
+
+RCT_EXTERN_METHOD(resumeSong)
+
+RCT_EXTERN_METHOD(stopSong)
+
+RCT_EXTERN_METHOD(repeatSong:(int) interval)
 
 @end
