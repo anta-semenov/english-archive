@@ -14,6 +14,16 @@ import MediaPlayer
 class MediaHelper: NSObject {
   var _player: AVAudioPlayer?
   
+  override init() {
+    let session = AVAudioSession.sharedInstance()
+    
+    do {
+      try session.setCategory(AVAudioSessionCategoryPlayback)
+    } catch let error as NSError {
+      print("\(error)")
+    }
+  }
+  
   @objc func getUserSongs(_ resolver: RCTPromiseResolveBlock, rejecter reject: RCTPromiseRejectBlock) -> Void {
     let mediaQuery = MPMediaQuery.artists()
     mediaQuery.groupingType = MPMediaGrouping.albumArtist
