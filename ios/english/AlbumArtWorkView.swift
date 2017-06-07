@@ -32,6 +32,8 @@ class AlbumArtWorkView: UIImageView {
         self.sizeToFit()
       } else {
         self._artwork = nil
+        self.image = UIImage(named: "EmptyArtwork")
+        self.sizeToFit()
       }
     }
   }
@@ -44,13 +46,13 @@ class AlbumArtWorkView: UIImageView {
     set(newSize) {
       if ((self._artwork) != nil) {
         self.image = self._artwork!.image(at: CGSize(width: self.size, height: self.size))
-        self.sizeToFit()
       }
+      self.sizeToFit()
     }
   }  
   
   init() {
-    super.init(image: nil)
+    super.init(image: UIImage(named: "EmptyArtwork"))
     
     self.layer.cornerRadius = 4
     self.layer.masksToBounds = true
