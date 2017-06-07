@@ -2,15 +2,16 @@ import React from 'react'
 import {View, Text, StyleSheet} from 'react-native'
 import PlayIcon from './PlayIcon'
 import PauseIcon from './PauseIcon'
+import RepeatIcon from './RepeatIcon'
 import {colors, fonts} from '../../../constants/styleVariables'
 
-const Player = ({pause, repeat, stop, isPlaying, resume}) => (
+const Player = ({pause, repeat, stop, isPlaying, resume, repeatInterval}) => (
   <View style={styles.container}>
     {isPlaying ?
       <PauseIcon onPress={pause}/> :
       <PlayIcon onPress={resume}/>
     }
-    <Text style={styles.button} onPress={repeat}>Repeat</Text>
+    <RepeatIcon onPress={repeat} repeatInterval={repeatInterval}/>
     <Text style={styles.button} onPress={stop}>Back</Text>
   </View>
 )

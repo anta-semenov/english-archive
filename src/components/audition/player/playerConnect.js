@@ -6,7 +6,8 @@ import {colors} from '../../../constants/styleVariables'
 import * as fromReducer from '../../../reducer'
 
 const mapStateToProps = state => ({
-  isPlaying: fromReducer.getAuditionIsPlaying(state)
+  isPlaying: fromReducer.getAuditionIsPlaying(state),
+  repeatInterval: fromReducer.getRepeatInterval(state)
 })
 
 const mapDispatchToProps = (dispatch, {navigation}) => ({

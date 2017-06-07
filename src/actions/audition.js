@@ -1,6 +1,7 @@
 //@flow
 import * as actionTypes from '../constants/actionTypes'
 import {NativeModules} from 'react-native'
+import * as fromReducer from '../reducer'
 
 const {MediaHelper} = NativeModules
 
@@ -28,8 +29,8 @@ export const resumeAudition = () => dispatch => {
   dispatch({type: actionTypes.PLAY_AUDITION})
 }
 
-export const repeatAudition = () => dispatch => {
-  MediaHelper.repeatSong(3)
+export const repeatAudition = () => (dispatch, getState) => {
+  MediaHelper.repeatSong(fromReducer.getRepeatInterval(getState()))
 }
 
 export const finishAudition = () => dispatch => {
