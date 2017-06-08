@@ -12,6 +12,7 @@ export const colors = {
   first: navy,
   firstLight: Color(navy).lighten(0.15).hsl().string(),
   firstDark: Color(navy).darken(0.15).hsl().string(),
+  firstLightFade: Color(navy).lighten(0.15).fade(0.5).hsl().string(),
   second: white,
   secondFade: Color(white).fade(0.3).hsl().string(),
   third: red

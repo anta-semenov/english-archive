@@ -12,3 +12,4 @@ export default settings
 /*
  Selectors
 */
+export const getRepeatInterval = state => state.repeatInterval || 3
