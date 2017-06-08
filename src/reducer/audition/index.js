@@ -15,7 +15,7 @@ const audition: Reducer = (state = {}, action) => {
       return {...state, audioFileProgress: action.progress}
 
     case actionTypes.END_AUDITION:
-      return {userSongs: state.userSongs}
+      return {userSongs: state.userSongs, filter: state.filter}
 
     case actionTypes.LOAD_USER_SONGS:
       return {...state, userSongs: action.userSongs}
@@ -56,7 +56,7 @@ export const getUserSongs = createSelector(
         const lowCaseFilter = filter.toLowerCase()
         return item.filter(
           ({title, artist, album}) =>
-            title.toLowerCase().includes(lowCaseFilter) || 
+            title.toLowerCase().includes(lowCaseFilter) ||
             artist.toLowerCase().includes(lowCaseFilter) ||
             album.toLowerCase().includes(lowCaseFilter)
         )
