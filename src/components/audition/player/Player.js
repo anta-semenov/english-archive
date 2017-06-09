@@ -8,7 +8,6 @@ import {colors} from '../../../constants/styleVariables'
 
 const Player = ({pause, repeat, stop, isPlaying, resume, repeatInterval}) => (
   <View style={styles.container}>
-
     <View style={styles.playerControls}>
       <RepeatIcon onPress={repeat} repeatInterval={repeatInterval}/>
       {isPlaying ?
@@ -26,12 +25,9 @@ Player.propTypes = {
 
 const styles = StyleSheet.create({
   container: {
-    ...StyleSheet.absoluteFillObject,
-    top: -20,
     flex: 1,
     alignItems: 'center',
-    backgroundColor: colors.first,
-    zIndex: 2
+    backgroundColor: colors.first
   },
   playerControls: {
     flex: 1,
