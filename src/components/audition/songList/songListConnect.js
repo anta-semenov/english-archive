@@ -1,7 +1,7 @@
 import {connect} from 'react-redux'
 import {StatusBar} from 'react-native'
 import SongList from './SongList'
-import {SongListHeader, FilterInput, CancelButton, HeaderTitle} from './SongListHeader'
+import {SongListHeader, FilterInput, CancelButton} from './SongListHeader'
 import * as fromReducer from '../../../reducer'
 import {startAudition, filterSongs} from '../../../actions/audition'
 import {audition} from '../../../constants/routes'
@@ -22,9 +22,9 @@ const mapDispatchToProps = (dispatch, {navigation}) => ({
 })
 
 const connected = connect(mapStateToProps, mapDispatchToProps)(SongList)
-const connectedHeaderTitle = connect(mapStateToProps, mapDispatchToProps)(HeaderTitle)
+const connectedFilter = connect(mapStateToProps, mapDispatchToProps)(FilterInput)
 const connectedCancelButton = connect(mapStateToProps, mapDispatchToProps)(CancelButton)
 
-connected.navigationOptions = SongListHeader(connectedHeaderTitle, connectedCancelButton)
+connected.navigationOptions = SongListHeader(connectedFilter, connectedCancelButton)
 
 export default connected

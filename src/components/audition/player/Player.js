@@ -4,7 +4,7 @@ import PlayIcon from './PlayIcon'
 import PauseIcon from './PauseIcon'
 import RepeatIcon from './RepeatIcon'
 import {CancelIcon} from '../../common'
-import {colors, fonts} from '../../../constants/styleVariables'
+import {colors} from '../../../constants/styleVariables'
 
 const Player = ({pause, repeat, stop, isPlaying, resume, repeatInterval}) => (
   <View style={styles.container}>
@@ -26,9 +26,12 @@ Player.propTypes = {
 
 const styles = StyleSheet.create({
   container: {
+    ...StyleSheet.absoluteFillObject,
+    top: -20,
     flex: 1,
     alignItems: 'center',
-    backgroundColor: colors.first
+    backgroundColor: colors.first,
+    zIndex: 2
   },
   playerControls: {
     flex: 1,

@@ -12,7 +12,7 @@ import MediaPlayer
 
 @objc(AlbumArtWorkView)
 class AlbumArtWorkView: UIImageView {
-  var _size: Int = 50
+  var _size: Int = 57
   var _mediaItemId: String = ""
   var _artwork: MPMediaItemArtwork?
   

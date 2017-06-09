@@ -8,7 +8,7 @@ const artworkSize = fonts.listItemTitleSize + 2 * fonts.listItemSubtitleSize + 2
 const SongItem = ({data: {artist, title, album, id}, onPress}) => (
   <TouchableOpacity onPress={onPress}>
     <View style={styles.container}>
-      <AlbumArtwork mediaItemId={id} style={styles.artwork} size={artworkSize}/>
+      <AlbumArtwork mediaItemId={id} style={styles.artwork}/>
       <View style={styles.infoContainer}>
         <Text style={styles.title} numberOfLines={1} ellipsizeMode='tail'>{title}</Text>
         <Text style={styles.subtitle}>{artist}</Text>

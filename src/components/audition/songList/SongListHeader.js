@@ -82,7 +82,8 @@ export const SongListHeader = (HeaderTitle, CancelButton) => ({
       ),
       title: (
         <HeaderTitle setParams={setParams} mode={params.mode}/>
-      )
+      ),
+      left: undefined
     })
   }
 })

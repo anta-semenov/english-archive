@@ -28,7 +28,7 @@ connected.navigationOptions = {
     style: {
       height: 0,
       opacity: 0,
-      backgroundColor: colors.firstLight
+      backgroundColor: colors.firstLightFade
     }
   }
 }
