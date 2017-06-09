@@ -2,7 +2,7 @@ import React from 'react'
 import {TextInput, StyleSheet} from 'react-native'
 import {colors, fonts, layout} from '../../../../constants/styleVariables'
 
-const FilterInput = ({filter, filterOnChange, style, autoFocus, refFunc}) => (
+const FilterInput = ({filter, filterOnChange, style, refFunc}) => (
   <TextInput
     value={filter}
     onChangeText={filterOnChange}

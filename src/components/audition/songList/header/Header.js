@@ -2,7 +2,7 @@ import React from 'react'
 import {StyleSheet, LayoutAnimation, View, Keyboard} from 'react-native'
 import FilterInput from './FilterInput'
 import Title from './Title'
-import {colors, layout} from '../../../../constants/styleVariables'
+import {layout} from '../../../../constants/styleVariables'
 
 class Header extends React.PureComponent {
   componentWillReceiveProps({mode}) {
