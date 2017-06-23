@@ -5,11 +5,11 @@ import Title from './Title'
 import {layout} from '../../../../constants/styleVariables'
 
 class Header extends React.PureComponent {
-  componentWillReceiveProps({mode}) {
-    if (mode !== this.props.mode) {
+  componentWillReceiveProps({isSearch}) {
+    if (isSearch !== this.props.isSearch) {
       LayoutAnimation.linear()
 
-      if (mode !== 'search') {
+      if (!isSearch) {
         Keyboard.dismiss()
       } else if (this.filter) {
         this.filter.focus()

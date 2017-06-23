@@ -2,6 +2,8 @@
 import * as actionTypes from '../constants/actionTypes'
 import {NativeModules} from 'react-native'
 import * as fromReducer from '../reducer'
+import {MEDIA_LIBRARY_LAST_MODIFIED} from '../constants/storageKeys'
+import {localStorage} from '../utils/localStorage'
 
 const {MediaHelper} = NativeModules
 
@@ -39,16 +41,22 @@ export const finishAudition = () => dispatch => {
 }
 
 export const loadUserSongs = () => async (dispatch: Dispatch) => {
-  const songs = await MediaHelper.getUserSongs()
-  const userSongs = {}
+  const cachedLatModified = await localStorage.getItem(MEDIA_LIBRARY_LAST_MODIFIED)
+  const lastModified = await MediaHelper.getMediaLibraryLastModified()
 
-  songs.forEach(section => {
-    userSongs[section.artist] = section.items.sort((a, b) => {
-      if (a.album > b.album) return 1
-      if (a.album < b.album) return -1
-      return 0
+  if (cachedLatModified !== lastModified) {
+    const songs = await MediaHelper.getUserSongs()
+    const userSongs = {}
+
+    songs.forEach(section => {
+      userSongs[section.artist] = section.items.sort((a, b) => {
+        if (a.album > b.album) return 1
+        if (a.album < b.album) return -1
+        return 0
+      })
     })
-  })
 
-  dispatch({type: actionTypes.LOAD_USER_SONGS, userSongs})
+    dispatch({type: actionTypes.LOAD_USER_SONGS, userSongs})
+    localStorage.setItem(MEDIA_LIBRARY_LAST_MODIFIED, lastModified)
+  }
 }

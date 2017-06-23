@@ -101,5 +101,7 @@ class MediaHelper: NSObject {
     _player!.play()
   }
   
-  
+  @objc func getMediaLibraryLastModified(_ resolver: RCTPromiseResolveBlock, rejecter reject: RCTPromiseRejectBlock) -> Void {
+    resolver(MPMediaLibrary.default().lastModifiedDate)
+  }
 }

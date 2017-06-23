@@ -6,12 +6,34 @@ import AuditionPLayer from '../player/playerConnect'
 import {colors} from '../../../constants/styleVariables'
 
 class SongList extends React.PureComponent {
-  state = {
-    playerIsOpen: false,
-    ds: new ListView.DataSource({
+  constructor(props) {
+    super(props)
+
+    const ds = new ListView.DataSource({
       rowHasChanged: (r1, r2) => r1 !== r2,
       sectionHeaderHasChanged: (s1, s2) => s1 !== s2
     })
+
+    this.state = {
+      playerIsOpen: false,
+      ds,
+      data: ds.cloneWithRowsAndSections(props.data)
+    }
+  }
+
+  componentWillReceiveProps({data}) {
+    if (data !== this.props.data) {
+      if (this.updateDataId) {
+        clearTimeout(this.updateDataId)
+      }
+
+      const data = this.state.ds.cloneWithRowsAndSections(data)}
+
+      this.updateDataId = setTimeout(
+        () => this.setState({data}),
+        70
+      )
+    }
   }
 
   closePlayer = () => {
@@ -24,15 +46,15 @@ class SongList extends React.PureComponent {
   }
 
   render() {
-    const {ds, playerIsOpen} = this.state
-    const {data} = this.props
+    const {ds, playerIsOpen, data} = this.state
+    //const {data} = this.props
 
-    StatusBar.setHidden(playerIsOpen, true)
+    StatusBar.setHidden(playerIsOpen, 'fade')
 
     return (
       <View style={styles.container}>
         <ListView
-          dataSource={ds.cloneWithRowsAndSections(data)}
+          dataSource={data}
           renderRow={rowData => (
             <SongItem data={rowData} onPress={() => this.onPress(rowData)}/>
           )}

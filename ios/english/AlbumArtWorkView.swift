@@ -29,11 +29,9 @@ class AlbumArtWorkView: UIImageView {
       if let artwork = mediaItem.artwork {
         self._artwork = artwork
         self.image = artwork.image(at: CGSize(width: self.size, height: self.size))
-        self.sizeToFit()
       } else {
         self._artwork = nil
         self.image = UIImage(named: "EmptyArtwork")
-        self.sizeToFit()
       }
     }
   }
@@ -42,14 +40,16 @@ class AlbumArtWorkView: UIImageView {
     get {
       return self._size
     }
-    
     set(newSize) {
-      if ((self._artwork) != nil) {
-        self.image = self._artwork!.image(at: CGSize(width: self.size, height: self.size))
+      if (newSize == self._size || self._artwork == nil) {
+        return
       }
-      self.sizeToFit()
+        
+      self._size = newSize
+      self.image = self._artwork!.image(at: CGSize(width: newSize, height: newSize))
+      
     }
-  }  
+  }
   
   init() {
     super.init(image: UIImage(named: "EmptyArtwork"))

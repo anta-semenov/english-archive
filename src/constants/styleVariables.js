@@ -1,9 +1,10 @@
+//@flow
 import {Platform} from 'react-native'
 import Color from 'color'
 
-const navy = '#0a4888'
-const white = '#fffef5'
-const red = '#cd3030'
+const navy: string = '#0a4888'
+const white: string = '#fffef5'
+const red: string = '#cd3030'
 
 export const colors = {
   navy,
@@ -18,7 +19,15 @@ export const colors = {
   third: red
 }
 
-export const fonts = {
+type FontVariables = {
+  listItemTitleSize: number,
+  listItemSubtitleSize: number,
+  buttonSize: number,
+  navBarTitleSize: number,
+  navBarTitleWeight: string
+}
+
+export const fonts: FontVariables = {
   ...Platform.select({
     ios: {
       listItemTitleSize: 17,
@@ -37,7 +46,11 @@ export const fonts = {
   })
 }
 
-export const layout = {
+type LayoutVariables = {
+  spacer: number
+}
+
+export const layout: LayoutVariables = {
   ...Platform.select({
     ios: {
       spacer: 8

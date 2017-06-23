@@ -23,4 +23,6 @@ RCT_EXTERN_METHOD(stopSong)
 
 RCT_EXTERN_METHOD(repeatSong:(int) interval)
 
+RCT_EXTERN_METHOD(getMediaLibraryLastModified:(RCTPromiseResolveBlock *)resolve rejecter:(RCTPromiseRejectBlock *)reject)
+
 @end

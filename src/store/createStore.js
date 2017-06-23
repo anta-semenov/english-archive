@@ -1,10 +1,17 @@
 import {createStore, applyMiddleware} from 'redux'
 import thunk from 'redux-thunk'
 import rootReducer from '../reducer'
-import {loadUserSongs} from '../actions/audition'
+import {loadUserSongs, loadState} from '../actions'
+import throttle from 'lodash/throttle'
+import {STATE} from '../constants/storageKeys'
 
 const configureStore = (): Store => {
   const store = createStore(rootReducer, applyMiddleware(thunk))
+
+  store.subscribe(throttle(() => {
+  const state = store.getState()
+  localStorage.setItem(STATE, state)
+}, 5000))
 
   if (module.hot) {
     // Enable Webpack hot module replacement for reducers
@@ -14,6 +21,7 @@ const configureStore = (): Store => {
     })
   }
 
+  store.dispatch(loadState())
   store.dispatch(loadUserSongs())
   return store
 }

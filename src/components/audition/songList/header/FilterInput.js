@@ -1,8 +1,16 @@
+//@flow
 import React from 'react'
 import {TextInput, StyleSheet} from 'react-native'
 import {colors, fonts, layout} from '../../../../constants/styleVariables'
 
-const FilterInput = ({filter, filterOnChange, style, refFunc}) => (
+type FilterInputProps = {
+  filter: number,
+  filterOnChange: (value: string) => void,
+  style: Array<StyleSheet>,
+  refFunc: (React.DOM) => void,
+}
+
+const FilterInput = ({filter, filterOnChange, style, refFunc}: FilterInputProps) => (
   <TextInput
     value={filter}
     onChangeText={filterOnChange}

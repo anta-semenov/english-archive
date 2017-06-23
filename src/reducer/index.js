@@ -2,6 +2,7 @@ import {combineReducers} from 'redux'
 import audition, * as fromAudition from './audition'
 import settings, * as fromSettings from './settings'
 import ui, * as fromUi from './ui'
+import {LOAD_STATE} from '../constants/actionTypes'
 
 const rootReducer: Reducer = combineReducers({
   audition,
@@ -9,7 +10,14 @@ const rootReducer: Reducer = combineReducers({
   ui
 })
 
-export default rootReducer
+export default (state, action) => {
+  switch (action.type) {
+    case LOAD_STATE:
+      return action.state
+    default:
+      return rootReducer(state, action)
+  }
+}
 
 Object.keys(fromAudition).forEach(key => {
   if (key === 'default') return
