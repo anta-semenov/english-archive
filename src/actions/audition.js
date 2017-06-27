@@ -40,12 +40,17 @@ export const finishAudition = () => dispatch => {
   dispatch({type: actionTypes.END_AUDITION})
 }
 
-export const loadUserSongs = () => async (dispatch: Dispatch) => {
+export const loadUserSongs = () => async (dispatch: Dispatch, getState) => {
   const cachedLatModified = await localStorage.getItem(MEDIA_LIBRARY_LAST_MODIFIED)
   const lastModified = await MediaHelper.getMediaLibraryLastModified()
+  const userSongs = fromReducer.getUserSongs(getState())
 
-  if (cachedLatModified !== lastModified) {
+  if (cachedLatModified !== lastModified || Object.keys(userSongs) === 0) {
     const songs = await MediaHelper.getUserSongs()
+
+    if (songs.length > 0) {
+      localStorage.setItem(MEDIA_LIBRARY_LAST_MODIFIED, lastModified)
+    }
     const userSongs = {}
 
     songs.forEach(section => {
@@ -55,8 +60,6 @@ export const loadUserSongs = () => async (dispatch: Dispatch) => {
         return 0
       })
     })
-
     dispatch({type: actionTypes.LOAD_USER_SONGS, userSongs})
-    localStorage.setItem(MEDIA_LIBRARY_LAST_MODIFIED, lastModified)
   }
 }

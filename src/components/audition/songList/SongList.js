@@ -27,10 +27,10 @@ class SongList extends React.PureComponent {
         clearTimeout(this.updateDataId)
       }
 
-      const data = this.state.ds.cloneWithRowsAndSections(data)}
+      const stateData = this.state.ds.cloneWithRowsAndSections(data)
 
       this.updateDataId = setTimeout(
-        () => this.setState({data}),
+        () => this.setState({data: stateData}),
         70
       )
     }
@@ -46,8 +46,7 @@ class SongList extends React.PureComponent {
   }
 
   render() {
-    const {ds, playerIsOpen, data} = this.state
-    //const {data} = this.props
+    const {playerIsOpen, data} = this.state
 
     StatusBar.setHidden(playerIsOpen, 'fade')
 

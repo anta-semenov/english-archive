@@ -14,11 +14,13 @@ const getItem = async key => {
 }
 
 const setItem = async (key, value) => {
+  if (!value || value == null) return
+
   const serializedValue = JSON.stringify(value)
   try {
     await AsyncStorage.setItem(key, serializedValue)
   } catch (e) {
-      console.log(e);
+    console.log(e);
   }
 }
 

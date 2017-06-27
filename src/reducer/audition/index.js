@@ -44,10 +44,10 @@ Object.keys(fromMissingWords).forEach(key => {
   module.exports[key] = state => fromMissingWords[key](state.missingWords)
 })
 
-export const getAuditionFilter = state => state.filter || ''
+export const getAuditionFilter = state => (state || {}).filter || ''
 export const getUserSongs = createSelector(
   getAuditionFilter,
-  state => state.userSongs || {},
+  state => (state || {}).userSongs || {},
   (filter, songs) => {
     if (!filter) return songs
 

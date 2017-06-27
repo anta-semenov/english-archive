@@ -4,14 +4,15 @@ import rootReducer from '../reducer'
 import {loadUserSongs, loadState} from '../actions'
 import throttle from 'lodash/throttle'
 import {STATE} from '../constants/storageKeys'
+import {localStorage} from '../utils/localStorage'
 
 const configureStore = (): Store => {
   const store = createStore(rootReducer, applyMiddleware(thunk))
 
   store.subscribe(throttle(() => {
-  const state = store.getState()
-  localStorage.setItem(STATE, state)
-}, 5000))
+    const state = store.getState()
+    localStorage.setItem(STATE, state)
+  }, 5000))
 
   if (module.hot) {
     // Enable Webpack hot module replacement for reducers

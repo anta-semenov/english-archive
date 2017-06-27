@@ -4,10 +4,12 @@ import {SongListHeader, Header, CancelButton} from './header'
 import * as fromReducer from '../../../reducer'
 import {startAudition, filterSongs} from '../../../actions/audition'
 
-const mapStateToProps = state => ({
-  data: fromReducer.getUserSongs(state),
-  filter: fromReducer.getAuditionFilter(state)
-})
+const mapStateToProps = state => {
+  return ({
+    data: fromReducer.getUserSongs(state),
+    filter: fromReducer.getAuditionFilter(state)
+  })
+}
 
 const mapDispatchToProps = (dispatch) => ({
   startAudition: song => {
