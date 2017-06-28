@@ -8,8 +8,10 @@ const audition: Reducer = (state = {}, action) => {
     case actionTypes.CHECK_WORD:
       return {...state, missingWords: missingWords(state.missingWords, action)}
 
-    case actionTypes.INIT_AUDITION:
-      return action.audition
+    case actionTypes.INIT_AUDITION: {
+      const {missingWords, textWithMissings, fullText} = action
+      return {...state, missingWords, textWithMissings, fullText}
+    }
 
     case actionTypes.SET_AUDIO_FILE_PROGRESS:
       return {...state, audioFileProgress: action.progress}

@@ -4,21 +4,26 @@ import {NativeModules} from 'react-native'
 import * as fromReducer from '../reducer'
 import {MEDIA_LIBRARY_LAST_MODIFIED} from '../constants/storageKeys'
 import {localStorage} from '../utils/localStorage'
+import {getTextWithMissings} from '../utils/lyrics'
 
 const {MediaHelper} = NativeModules
 
-export const filterSongs = filter => ({type: actionTypes.SET_AUDITION_FILTER, filter})
+export const filterSongs = (filter: string) => ({type: actionTypes.SET_AUDITION_FILTER, filter})
 
-export const startAudition = (audioFile: object) => async (dispatch: Dispatch) => {
-  MediaHelper.playSong(audioFile.assetUrl)
-  dispatch({type: actionTypes.PLAY_AUDITION})
-  //getting audition text
+export const startAudition = (audioFile) => async (dispatch: Dispatch) => {
+  const fullText = audioFile.lyrics
+  const {missingWords, textWithMissings} = getTextWithMissings(fullText)
 
-  //set text as full Text
-
-  //generate missing words
+  dispatch({
+    type: actionTypes.INIT_AUDITION,
+    fullText,
+    missingWords,
+    textWithMissings
+  })
 
   //set missing words
+  MediaHelper.playSong(audioFile.assetUrl)
+  dispatch({type: actionTypes.PLAY_AUDITION})
 }
 
 export const pauseAudition = () => dispatch => {
