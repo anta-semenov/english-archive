@@ -1,13 +1,14 @@
 import {createStore, applyMiddleware} from 'redux'
 import thunk from 'redux-thunk'
+import logger from 'redux-logger'
 import rootReducer from '../reducer'
 import {loadUserSongs, loadState} from '../actions'
 import throttle from 'lodash/throttle'
 import {STATE} from '../constants/storageKeys'
-import {localStorage} from '../utils/localStorage'
+import {localStorage} from '../services/localStorage'
 
 const configureStore = (): Store => {
-  const store = createStore(rootReducer, applyMiddleware(thunk))
+  const store = createStore(rootReducer, applyMiddleware(thunk, logger))
 
   store.subscribe(throttle(() => {
     const state = store.getState()

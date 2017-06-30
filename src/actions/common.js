@@ -1,5 +1,5 @@
 import {LOAD_STATE} from '../constants/actionTypes'
-import {localStorage} from '../utils/localStorage'
+import {localStorage} from '../services/localStorage'
 import {STATE} from '../constants/storageKeys'
 
 export const loadState = () => async (dispatch) => {
