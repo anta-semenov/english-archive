@@ -1,6 +1,7 @@
 import {AsyncStorage} from 'react-native'
+import * as storageKeys from '../constants/storageKeys'
 
-const getItem = async key => {
+const getItem = async (key: string) => {
   try {
     const savedItem = await AsyncStorage.getItem(key)
     if (savedItem) {
@@ -13,7 +14,7 @@ const getItem = async key => {
   }
 }
 
-const setItem = async (key, value) => {
+const setItem = async (key: string, value: any) => {
   if (!value || value == null) return
 
   const serializedValue = JSON.stringify(value)
@@ -24,7 +25,7 @@ const setItem = async (key, value) => {
   }
 }
 
-const removeItem = async key => {
+const removeItem = async (key: string) => {
   try {
     await AsyncStorage.removeItem(key)
   } catch (e) {
@@ -32,8 +33,17 @@ const removeItem = async key => {
   }
 }
 
+const clear = async () => {
+  try {
+    await AsyncStorage.multiRemove(Object.keys(storageKeys))
+  } catch (e) {
+    console.log(e);
+  }
+}
+
 export const localStorage = {
   getItem,
   setItem,
-  removeItem
+  removeItem,
+  clear
 }

@@ -1,11 +1,18 @@
 import {LOAD_STATE} from '../constants/actionTypes'
 import {localStorage} from '../services/localStorage'
-import {STATE} from '../constants/storageKeys'
+import {STATE, STATE_VERSION} from '../constants/storageKeys'
+import {stateVersion} from '../constants/config'
 
 export const loadState = () => async (dispatch) => {
-  const state = await localStorage.getItem(STATE)
+  const currentStateVersion = await localStorage.getItem(STATE_VERSION)
 
-  if (state) {
-    dispatch({type: LOAD_STATE, state})
+  if (currentStateVersion == stateVersion) {
+    const state = await localStorage.getItem(STATE)
+    if (state) {
+      dispatch({type: LOAD_STATE, state})
+    }
+  } else {
+    localStorage.clear()
+    localStorage.setItem(STATE_VERSION, stateVersion)
   }
 }
