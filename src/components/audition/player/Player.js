@@ -4,7 +4,7 @@ import PlayIcon from './PlayIcon'
 import PauseIcon from './PauseIcon'
 import RepeatIcon from './RepeatIcon'
 import {CancelIcon} from '../../common'
-import SongText from './songText/SongText'
+import AuditionText from './auditionText/AuditionText'
 import {colors} from '../../../constants/styleVariables'
 
 const Player = ({pause, repeat, stop, isPlaying, resume, repeatInterval, textWithMissings, currentMissingWordId, currentMissingWordAnswer}) => (
@@ -17,7 +17,7 @@ const Player = ({pause, repeat, stop, isPlaying, resume, repeatInterval, textWit
       }
       <CancelIcon onPress={stop} style={styles.button}/>
     </View>
-    <SongText
+    <AuditionText
       textWithMissings={textWithMissings}
       currentMissingWordId={currentMissingWordId}
       currentMissingWordAnswer={currentMissingWordAnswer}

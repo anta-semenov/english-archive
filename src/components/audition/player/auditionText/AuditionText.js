@@ -1,19 +1,19 @@
 import React from 'react'
 import {FlatList, StyleSheet} from 'react-native'
-import SongTextRow from './SongTextRow'
+import AuditionTextRow from './AuditionTextRow'
 
-type SongTextProps = {
+type AuditionTextProps = {
   textWithMissings: string[],
   currentMissingWordId: number,
   currentMissingWordAnswer: string
 }
 
-const SongText = ({textWithMissings, currentMissingWordId, currentMissingWordAnswer}: SongTextProps) => (
+const AuditionText = ({textWithMissings, currentMissingWordId, currentMissingWordAnswer}: AuditionTextProps) => (
   <FlatList
     style={styles.container}
     data={textWithMissings}
     extraData={`${currentMissingWordId}${currentMissingWordAnswer}`}
-    renderItem={({item}) => <SongTextRow row={item} currentMissingWordId={currentMissingWordId}/>}
+    renderItem={({item}) => <AuditionTextRow row={item} currentMissingWordId={currentMissingWordId}/>}
   />
 )
 
@@ -23,4 +23,4 @@ const styles = StyleSheet.create({
   }
 })
 
-export default SongText
+export default AuditionText
