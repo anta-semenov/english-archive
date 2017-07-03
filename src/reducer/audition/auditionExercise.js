@@ -1,6 +1,14 @@
 import * as actionTypes from '../../constants/actionTypes'
 import missingWords, * as fromMissingWords from './missingWords'
-import {pick} from 'lodash'
+import type MissingWordsState from './missingWords'
+
+export type AuditionState = {
+  fullText: string,
+  missingWords: MissingWordsState,
+  textWithMissings: string[],
+  assetUrl: string,
+  auditionStarted: boolean
+}
 
 const audition: Reducer = (state = {}, action) => {
   switch (action.type) {
@@ -21,7 +29,7 @@ const audition: Reducer = (state = {}, action) => {
       return {...state, isPlaying: false}
 
     case actionTypes.PLAY_AUDITION:
-      return {...state, isPlaying: true}
+      return {...state, isPlaying: true, auditionStarted: true}
 
     default:
       return state
@@ -39,3 +47,5 @@ Object.keys(fromMissingWords).forEach(key => {
 })
 
 export const getAuditionIsPlaying = state => state.isPlaying || false
+export const getAuditionIsStarted = (state: AuditionState): boolean => state.auditionStarted || false
+export const getAuditionAssetUrl = (state: AuditionState): string => state.assetUrl || ''

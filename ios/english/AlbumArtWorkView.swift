@@ -24,6 +24,12 @@ class AlbumArtWorkView: UIImageView {
       self._mediaItemId = newMediaItemId
       let predicate = MPMediaPropertyPredicate.init(value: UInt64(newMediaItemId), forProperty: MPMediaItemPropertyPersistentID)
       let query = MPMediaQuery(filterPredicates: [predicate])
+      if (query.items == nil || query.items!.count == 0) {
+        self._artwork = nil
+        self.image = UIImage(named: "EmptyArtwork")
+        return
+      }
+      
       let mediaItem = query.items![0]
       
       if let artwork = mediaItem.artwork {

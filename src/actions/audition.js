@@ -1,13 +1,19 @@
 //@flow
 import * as actionTypes from '../constants/actionTypes'
 import {NativeModules} from 'react-native'
-import * as fromReducer from '../reducer'
+import {getRepeatInterval, getUserSongs, getAuditionIsStarted, getAuditionAssetUrl} from '../reducer'
 import {MEDIA_LIBRARY_LAST_MODIFIED} from '../constants/storageKeys'
 import {localStorage} from '../services/localStorage'
 import {getTextWithMissings} from '../services/lyrics'
 import type {MediaHelperType, AudioItem} from '../types/mediaHelper'
+import Config from 'react-native-config'
 
-const MediaHelper: MediaHelperType = NativeModules.MediaHelper
+let MediaHelper: MediaHelperType
+if (Config.USE_MEDIA_HELPER_MOCK == 'true') {
+  MediaHelper = require('../devMocks/mediaHelper').MediaHelper
+} else {
+  MediaHelper = NativeModules.MediaHelper
+}
 
 export const filterSongs = (filter: string) => ({type: actionTypes.SET_AUDITION_FILTER, filter})
 
@@ -20,13 +26,11 @@ export const startAudition = (audioFile: AudioItem) => async (dispatch: Dispatch
     audition: {
       fullText,
       missingWords,
-      textWithMissings
+      textWithMissings,
+      assetUrl: audioFile.assetUrl,
+      auditionStarted: false
     }
   })
-
-  //set missing words
-  MediaHelper.playSong(audioFile.assetUrl)
-  dispatch({type: actionTypes.PLAY_AUDITION})
 }
 
 export const pauseAudition = () => dispatch => {
@@ -34,13 +38,19 @@ export const pauseAudition = () => dispatch => {
   dispatch({type: actionTypes.PAUSE_AUDITION})
 }
 
-export const resumeAudition = () => dispatch => {
-  MediaHelper.resumeSong()
+export const resumeAudition = () => (dispatch, getState) => {
+  const state = getState()
+  if (getAuditionIsStarted(state)) {
+    MediaHelper.resumeSong()
+  } else {
+    MediaHelper.playSong(getAuditionAssetUrl(state))
+  }
+
   dispatch({type: actionTypes.PLAY_AUDITION})
 }
 
 export const repeatAudition = () => (dispatch, getState) => {
-  MediaHelper.repeatSong(fromReducer.getRepeatInterval(getState()))
+  MediaHelper.repeatSong(getRepeatInterval(getState()))
 }
 
 export const finishAudition = () => (dispatch: Dispatch) => {
@@ -51,7 +61,7 @@ export const finishAudition = () => (dispatch: Dispatch) => {
 export const loadUserSongs = () => async (dispatch: Dispatch, getState) => {
   const cachedLatModified = await localStorage.getItem(MEDIA_LIBRARY_LAST_MODIFIED)
   const lastModified = await MediaHelper.getMediaLibraryLastModified()
-  const userSongs = fromReducer.getUserSongs(getState())
+  const userSongs = getUserSongs(getState())
 
   if (cachedLatModified !== lastModified || Object.keys(userSongs) === 0) {
     const songs = await MediaHelper.getUserSongs()

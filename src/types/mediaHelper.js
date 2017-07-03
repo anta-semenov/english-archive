@@ -17,6 +17,7 @@ export type MediaHelperType = {
   playSong: (assetUrl: string) => void,
   pauseSong: () => void,
   resumeSong: () => void,
+  stopSong: () => void,
   repeatSong: (interval: number) => void,
   getMediaLibraryLastModified: () => Promise<Date>
 }

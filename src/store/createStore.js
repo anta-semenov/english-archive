@@ -1,14 +1,20 @@
 import {createStore, applyMiddleware} from 'redux'
 import thunk from 'redux-thunk'
-import logger from 'redux-logger'
 import rootReducer from '../reducer'
 import {loadUserSongs, loadState} from '../actions'
 import throttle from 'lodash/throttle'
 import {STATE} from '../constants/storageKeys'
 import {localStorage} from '../services/localStorage'
+import Config from 'react-native-config'
+
+const middleware = [thunk]
+
+if (Config.DEV) {
+  middleware.push(require('redux-logger').default)
+}
 
 const configureStore = (): Store => {
-  const store = createStore(rootReducer, applyMiddleware(thunk, logger))
+  const store = createStore(rootReducer, applyMiddleware(...middleware))
 
   store.subscribe(throttle(() => {
     const state = store.getState()
