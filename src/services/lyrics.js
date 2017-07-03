@@ -4,6 +4,13 @@ export const getLyrics = (author: string, songName: string): string => {
   return ''
 }
 
+export type MissingWordType = {
+  id: number,
+  word: string,
+  answered: boolean,
+  correct: boolean
+}
+
 export const getTextWithMissings = (sourceText: string) => {
   const missingWords = {}
   let missingWordId = 0
@@ -20,7 +27,7 @@ export const getTextWithMissings = (sourceText: string) => {
         id: missingWordId,
         word: missingWord,
         answered: false,
-        correctWrong: undefined
+        correct: undefined
       }
 
       const newLyricsString = lyricsString.replace(missingWord, `#${missingWordId}`)

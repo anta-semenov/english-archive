@@ -4,9 +4,10 @@ import PlayIcon from './PlayIcon'
 import PauseIcon from './PauseIcon'
 import RepeatIcon from './RepeatIcon'
 import {CancelIcon} from '../../common'
+import SongText from './songText/SongText'
 import {colors} from '../../../constants/styleVariables'
 
-const Player = ({pause, repeat, stop, isPlaying, resume, repeatInterval}) => (
+const Player = ({pause, repeat, stop, isPlaying, resume, repeatInterval, textWithMissings, currentMissingWordId, currentMissingWordAnswer}) => (
   <View style={styles.container}>
     <View style={styles.playerControls}>
       <RepeatIcon onPress={repeat} repeatInterval={repeatInterval}/>
@@ -16,6 +17,11 @@ const Player = ({pause, repeat, stop, isPlaying, resume, repeatInterval}) => (
       }
       <CancelIcon onPress={stop} style={styles.button}/>
     </View>
+    <SongText
+      textWithMissings={textWithMissings}
+      currentMissingWordId={currentMissingWordId}
+      currentMissingWordAnswer={currentMissingWordAnswer}
+    />
   </View>
 )
 

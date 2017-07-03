@@ -2,12 +2,14 @@ import * as actionTypes from '../../constants/actionTypes'
 import missingWords, * as fromMissingWords from './missingWords'
 import type MissingWordsState from './missingWords'
 
-export type AuditionState = {
+export interface AuditionState {
   fullText: string,
   missingWords: MissingWordsState,
   textWithMissings: string[],
   assetUrl: string,
-  auditionStarted: boolean
+  auditionStarted: boolean,
+  currentMissingWordId: number,
+  currentMissingWordAnswer?: string
 }
 
 const audition: Reducer = (state = {}, action) => {
@@ -49,3 +51,6 @@ Object.keys(fromMissingWords).forEach(key => {
 export const getAuditionIsPlaying = state => state.isPlaying || false
 export const getAuditionIsStarted = (state: AuditionState): boolean => state.auditionStarted || false
 export const getAuditionAssetUrl = (state: AuditionState): string => state.assetUrl || ''
+export const getAuditionTextWithMissings = (state: AuditionState): string[] => state.textWithMissings || []
+export const getAuditionCurrentMissingWordId = (state: AuditionState): number => state.currentMissingWordId || -1
+export const getAuditionCurrentMissingWordAnswer = (state: AuditionState): string => state.currentMissingWordAnswer || ''

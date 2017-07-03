@@ -28,7 +28,8 @@ export const startAudition = (audioFile: AudioItem) => async (dispatch: Dispatch
       missingWords,
       textWithMissings,
       assetUrl: audioFile.assetUrl,
-      auditionStarted: false
+      auditionStarted: false,
+      currentMissingWordId: -1
     }
   })
 }

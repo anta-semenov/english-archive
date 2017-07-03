@@ -5,7 +5,10 @@ import * as fromReducer from '../../../reducer'
 
 const mapStateToProps = state => ({
   isPlaying: fromReducer.getAuditionIsPlaying(state),
-  repeatInterval: fromReducer.getRepeatInterval(state)
+  repeatInterval: fromReducer.getRepeatInterval(state),
+  textWithMissings: fromReducer.getAuditionTextWithMissings(state),
+  currentMissingWordId: fromReducer.getAuditionCurrentMissingWordId(state),
+  currentMissingWordAnswer: fromReducer.getAuditionCurrentMissingWordAnswer(state)
 })
 
 const mapDispatchToProps = (dispatch, {closePlayer}) => ({
