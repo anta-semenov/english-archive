@@ -1,5 +1,6 @@
 {
   "generator-react": {
-    "initResolvingPaths": "relative"
+    "initResolvingPaths": "relative",
+    "initProjectType": "reactNative"
   }
 }

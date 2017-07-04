@@ -24,7 +24,8 @@ type FontVariables = {
   listItemSubtitleSize: number,
   buttonSize: number,
   navBarTitleSize: number,
-  navBarTitleWeight: string
+  navBarTitleWeight: string,
+  auditionTextSize: number
 }
 
 export const fonts: FontVariables = {
@@ -34,14 +35,16 @@ export const fonts: FontVariables = {
       listItemSubtitleSize: 12,
       buttonSize: 16,
       navBarTitleSize: 17,
-      navBarTitleWeight: '600'
+      navBarTitleWeight: '600',
+      auditionTextSize: 17
     },
     android: {
       listItemTitleSize: 15,
       listItemSubtitleSize: 12,
       buttonSize: 15,
       navBarTitleSize: 18,
-      navBarTitleWeight: '500'
+      navBarTitleWeight: '500',
+      auditionTextSize: 15
     }
   })
 }
