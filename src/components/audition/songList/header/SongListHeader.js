@@ -2,22 +2,19 @@ import React from 'react'
 import {StyleSheet} from 'react-native'
 import {colors} from '../../../../constants/styleVariables'
 
-const SongListHeader = (Header, CancelButton) => ({
-  header: ({state: {params = {}}, setParams}) => {
-    const isSearch = params.mode === 'search'
+const SongListHeader = (Header, CancelButton) => ({navigation, screenProps}) => {
+  const {state: {params = {}}, setParams} = navigation
+  const isSearch = params.mode === 'search'
 
-    return ({
-      style: styles.header,
-      right: (isSearch ?
-        <CancelButton setParams={setParams}/> :
-        undefined
-      ),
-      title: (
-        <Header setParams={setParams} isSearch={isSearch}/>
-      )
-    })
-  }
-})
+  return ({
+    headerTitle: <Header setParams={setParams} isSearch={isSearch}/>,
+    headerRight: (isSearch ?
+      <CancelButton setParams={setParams}/> :
+      undefined
+    ),
+    headerStyle: styles.header
+  })
+}
 
 const styles = StyleSheet.create({
   header: {
