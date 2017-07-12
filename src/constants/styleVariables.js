@@ -11,24 +11,27 @@ export const colors = {
   white,
   red,
   first: navy,
-  firstLight: Color(navy).lighten(0.15).hsl().string(),
+  firstLight: Color(navy).lighten(0.15).rgb().string(),
   firstDark: Color(navy).darken(0.15).hsl().string(),
   firstLightFade: Color(navy).lighten(0.15).fade(0.5).hsl().string(),
   second: white,
   secondFade: Color(white).fade(0.3).hsl().string(),
-  third: red
+  third: red,
+  right: '#30cd90',
+  wrong: red
 }
 
-type FontVariables = {
+interface Fonts {
   listItemTitleSize: number,
   listItemSubtitleSize: number,
   buttonSize: number,
   navBarTitleSize: number,
   navBarTitleWeight: string,
-  auditionTextSize: number
+  auditionTextSize: number,
+  inputCharWidth: number
 }
 
-export const fonts: FontVariables = {
+export const fonts: Fonts = {
   ...Platform.select({
     ios: {
       listItemTitleSize: 17,
@@ -36,7 +39,8 @@ export const fonts: FontVariables = {
       buttonSize: 16,
       navBarTitleSize: 17,
       navBarTitleWeight: '600',
-      auditionTextSize: 17
+      auditionTextSize: 17,
+      inputCharWidth: 8
     },
     android: {
       listItemTitleSize: 15,
@@ -44,16 +48,17 @@ export const fonts: FontVariables = {
       buttonSize: 15,
       navBarTitleSize: 18,
       navBarTitleWeight: '500',
-      auditionTextSize: 15
+      auditionTextSize: 15,
+      inputCharWidth: 8
     }
   })
 }
 
-type LayoutVariables = {
+interface Layout {
   spacer: number
 }
 
-export const layout: LayoutVariables = {
+export const layout: Layout = {
   ...Platform.select({
     ios: {
       spacer: 8

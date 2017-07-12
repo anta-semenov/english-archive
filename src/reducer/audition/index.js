@@ -16,5 +16,5 @@ Object.keys(fromAudioItems).forEach(key => {
 
 Object.keys(fromAuditionExercise).forEach(key => {
   if (key === 'default')     return
-  module.exports[key] = state => fromAuditionExercise[key](state.auditionExercise)
+  module.exports[key] = (state, ...args) => fromAuditionExercise[key](state.auditionExercise, ...args)
 })

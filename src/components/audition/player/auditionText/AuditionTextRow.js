@@ -1,25 +1,34 @@
 import React from 'react'
-import {View, Text, StyleSheet} from 'react-native'
+import {View, Text, StyleSheet, Dimensions} from 'react-native'
 import MissingWordLabel from './missingWordLabel/missingWordLabelConnect'
 import MissingWordInput from './missingWordInput/missingWordInputConnect'
-import {fonts, colors} from '../../../../constants/styleVariables'
+import {fonts, colors, layout} from '../../../../constants/styleVariables'
 
 interface AuditionTextRowProps {
   textRow: string,
   currentMissingWordId: number
 }
 
-class AuditionTextRow extends React.Component<AuditionTextRowProps> {
+interface State {
+  elements: string[],
+  rowMissingWordId: number
+}
+
+class AuditionTextRow extends React.Component<AuditionTextRowProps, State> {
   constructor(props: AuditionTextRowProps) {
     super(props)
 
     let elements: string[] = []
-    let rowMissingWordId = -1
+    let rowMissingWordId = -2
 
     const {textRow} = props
     if (/#\d*/.test(textRow)) {
       elements = /(.*)(?=#)(#\d*)(.*)/.exec(textRow).slice(1)
       rowMissingWordId = +/#(\d*)/.exec(elements[1])[1]
+    } else if (textRow === '<empyString>') {
+      elements.push('')
+    } else {
+      elements.push(textRow)
     }
 
     this.state = {
@@ -31,11 +40,11 @@ class AuditionTextRow extends React.Component<AuditionTextRowProps> {
   shouldComponentUpdate({currentMissingWordId}) {
     const {rowMissingWordId} = this.state
     const {currentMissingWordId: previousCurrentMissingWordId} = this.props
+
     if (currentMissingWordId == rowMissingWordId ||
         previousCurrentMissingWordId == rowMissingWordId) {
       return true
     }
-
     return false
   }
 
@@ -45,16 +54,19 @@ class AuditionTextRow extends React.Component<AuditionTextRowProps> {
     const missingWordIsActive = currentMissingWordId == rowMissingWordId
 
     return(
-      <View>
-        {elements.map(element => {
+      <View style={styles.rowContainer}>
+        {elements.map((element, index, array) => {
           if (/#\d*/.test(element)) {
             return (
               missingWordIsActive ?
-              <MissingWordInput/> :
-              <MissingWordLabel missingWordId={rowMissingWordId}/>
+              <MissingWordInput
+                key={index}
+                autoCapitalaize={index == 0 || !array[index - 1] || array[index - 1].endsWith('. ')}
+              /> :
+              <MissingWordLabel id={rowMissingWordId} key={index}/>
             )
           } else {
-            return <Text style={styles.text}>{element}</Text>
+            return <Text style={styles.text} key={index}>{element}</Text>
           }
         })}
       </View>
@@ -65,11 +77,13 @@ class AuditionTextRow extends React.Component<AuditionTextRowProps> {
 const styles = StyleSheet.create({
   rowContainer: {
     flexDirection: 'row',
+    flexWrap: 'wrap',
     width: '100%'
   },
   text: {
     fontSize: fonts.auditionTextSize,
-    color: colors.second
+    color: colors.secondFade,
+    flex: 0
   }
 })
 

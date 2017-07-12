@@ -1,7 +1,8 @@
 //@flow
 import * as actionTypes from '../constants/actionTypes'
 import {NativeModules} from 'react-native'
-import {getRepeatInterval, getUserSongs, getAuditionIsStarted, getAuditionAssetUrl} from '../reducer'
+import {getRepeatInterval, getUserSongs, getAuditionIsStarted, getAuditionAssetUrl,
+  getAuditionCurrentMissingWordId, getAuditionMissingWordById} from '../reducer'
 import {MEDIA_LIBRARY_LAST_MODIFIED} from '../constants/storageKeys'
 import {localStorage} from '../services/localStorage'
 import {getTextWithMissings} from '../services/lyrics'
@@ -80,5 +81,20 @@ export const loadUserSongs = () => async (dispatch: Dispatch, getState) => {
       })
     })
     dispatch({type: actionTypes.LOAD_USER_SONGS, userSongs})
+  }
+}
+
+export const selectMissingWord = id => ({type: actionTypes.SELECT_MISSING_WORD, id})
+export const unselectMissingWord = () => ({type: actionTypes.SELECT_MISSING_WORD, id: -1})
+export const setMissingWordAnswer = (id, answer) => ({type: actionTypes.SET_MISSING_WORD_ANSWER, answer, id})
+
+export const checkMissingWord = (id, afterCheckSuccess, afterCheckFailure) => (dispatch, getState) => {
+  dispatch({type: actionTypes.CHECK_MISSING_WORD, id})
+  const {correct, checked} = getAuditionMissingWordById(getState(), id)
+
+  if (checked && correct && typeof afterCheckSuccess === 'function') {
+    afterCheckSuccess()
+  } else if (!correct && typeof afterCheckFailure === 'function') {
+    afterCheckFailure()
   }
 }

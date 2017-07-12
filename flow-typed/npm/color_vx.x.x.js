@@ -21,7 +21,8 @@ declare module 'color' {
     darken: (value: number) => Color,
     fade: (value: number) => Color,
     hsl: () => Color,
-    string: () => string
+    string: () => string,
+    rgb: () => Color
   }
 
   declare function Color(value: string): Color

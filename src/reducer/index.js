@@ -21,7 +21,7 @@ export default (state, action) => {
 
 Object.keys(fromAudition).forEach(key => {
   if (key === 'default') return
-  module.exports[key] = state => fromAudition[key](state.audition)
+  module.exports[key] = (state, ...args) => fromAudition[key](state.audition, ...args)
 })
 
 Object.keys(fromSettings).forEach(key => {

@@ -7,8 +7,10 @@ export const getLyrics = (author: string, songName: string): string => {
 export type MissingWordType = {
   id: number,
   word: string,
+  answer: string,
   answered: boolean,
-  correct: boolean
+  correct: boolean,
+  checked: boolean
 }
 
 export const getTextWithMissings = (sourceText: string) => {
@@ -16,11 +18,13 @@ export const getTextWithMissings = (sourceText: string) => {
   let missingWordId = 0
 
   const textWithMissings = sourceText.split('\n').map(lyricsString => {
-    if (lyricsString.length < 4 || ((Math.random() * 100) % 10) >= 4) {
+    if (!lyricsString) return '<empyString>'
+
+    const words = lyricsString.split(' ').filter(word => word.length > 3)
+
+    if (words.length < 3 || ((Math.random() * 100) % 10) >= 6) {
       return lyricsString
     } else {
-      const words = lyricsString.split(' ').filter(word => word.length > 3)
-
       const missWordIndex = Math.trunc(Math.random() * 1000) % words.length
       const missingWord = words[missWordIndex]
       missingWords[missingWordId] = {

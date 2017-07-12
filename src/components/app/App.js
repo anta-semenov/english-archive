@@ -4,6 +4,7 @@ import Audition from '../audition'
 
 const App = () => {
   StatusBar.setBarStyle('light-content')
+  
   return (
     <Audition/>
   )

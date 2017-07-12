@@ -64,6 +64,7 @@ class SongList extends React.PureComponent {
           visible={playerIsOpen}
           animationType='slide'
           transparent={true}
+          style={styles.container}
         >
           <AuditionPLayer closePlayer={this.closePlayer}/>
         </Modal>

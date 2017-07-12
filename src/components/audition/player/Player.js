@@ -9,6 +9,11 @@ import {colors} from '../../../constants/styleVariables'
 
 const Player = ({pause, repeat, stop, isPlaying, resume, repeatInterval, textWithMissings, currentMissingWordId, currentMissingWordAnswer}) => (
   <View style={styles.container}>
+    <AuditionText
+      textWithMissings={textWithMissings}
+      currentMissingWordId={currentMissingWordId}
+      currentMissingWordAnswer={currentMissingWordAnswer}
+    />
     <View style={styles.playerControls}>
       <RepeatIcon onPress={repeat} repeatInterval={repeatInterval}/>
       {isPlaying ?
@@ -17,11 +22,6 @@ const Player = ({pause, repeat, stop, isPlaying, resume, repeatInterval, textWit
       }
       <CancelIcon onPress={stop} style={styles.button}/>
     </View>
-    <AuditionText
-      textWithMissings={textWithMissings}
-      currentMissingWordId={currentMissingWordId}
-      currentMissingWordAnswer={currentMissingWordAnswer}
-    />
   </View>
 )
 
@@ -33,10 +33,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    backgroundColor: colors.first
+    backgroundColor: colors.first,
+    position: 'relative'
   },
   playerControls: {
-    flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
