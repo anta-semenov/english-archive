@@ -55,16 +55,19 @@ export const fonts: Fonts = {
 }
 
 interface Layout {
-  spacer: number
+  spacer: number,
+  auditionButtonsHeight: number
 }
 
 export const layout: Layout = {
   ...Platform.select({
     ios: {
-      spacer: 8
+      spacer: 8,
+      auditionButtonsHeight: 36
     },
     android: {
-      spacer: 16
+      spacer: 16,
+      auditionButtonsHeight: 54
     }
   })
 }

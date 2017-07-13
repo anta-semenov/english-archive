@@ -1,7 +1,8 @@
 import React from 'react'
-import {FlatList, StyleSheet, KeyboardAvoidingView, View, Text} from 'react-native'
+import {FlatList, StyleSheet, KeyboardAvoidingView, View} from 'react-native'
 import AuditionTextRow from './AuditionTextRow'
 import {layout} from '../../../../constants/styleVariables'
+import AuditionButtonsPane from './auditionButtonsPane/auditionButtonsPaneConnect'
 
 type AuditionTextProps = {
   textWithMissings: string[],
@@ -20,7 +21,7 @@ const AuditionText = ({textWithMissings, currentMissingWordId, currentMissingWor
         renderItem={({item}) => <AuditionTextRow textRow={item} currentMissingWordId={currentMissingWordId}/>}
       />
     </View>
-    <Text style={{height: 56, fontSize: 17}}>text on the bottom</Text>
+    <AuditionButtonsPane/>
   </KeyboardAvoidingView>
 )
 

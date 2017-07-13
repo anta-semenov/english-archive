@@ -16,7 +16,7 @@ const missingWord: Reducer = (state: MissingWordType = {}, action) => {
   const {answer, word} = state
   switch (action.type) {
     case actionTypes.CHECK_MISSING_WORD:
-      return {...state, checked: true, correct: word.toLowerCase().indexOf(answer.toLowerCase()) >= 0}
+      return {...state, checked: true, correct: !!answer && word.toLowerCase().indexOf(answer.toLowerCase()) >= 0}
     case actionTypes.SET_MISSING_WORD_ANSWER:
       return {...state, answer: action.answer, checked: false}
     default:
