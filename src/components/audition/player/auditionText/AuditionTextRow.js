@@ -1,9 +1,7 @@
 import React from 'react'
 import {View, Text, StyleSheet} from 'react-native'
-import MissingWordLabel from './missingWordLabel/missingWordLabelConnect'
-import MissingWordInput from './missingWordInput/missingWordInputConnect'
-import MissingWordContainer from './MissingWordContainer'
 import {fonts, colors, layout} from '../../../../constants/styleVariables'
+import MissingWord from './missingWord/missingWordConnect'
 
 interface AuditionTextRowProps {
   textRow: string,
@@ -51,20 +49,17 @@ class AuditionTextRow extends React.Component<AuditionTextRowProps, State> {
 
   render() {
     const {elements, rowMissingWordId} = this.state
-    const {currentMissingWordId} = this.props
-    const missingWordIsActive = currentMissingWordId == rowMissingWordId
 
     return(
       <View style={styles.rowContainer}>
         {elements.map((element, index, array) => {
           if (/#\d*/.test(element)) {
             return (
-              missingWordIsActive ?
-              <MissingWordInput
+              <MissingWord
                 key={index}
-                autoCapitalaize={index == 0 || !array[index - 1] || array[index - 1].endsWith('. ')}
-              /> :
-              <MissingWordLabel id={rowMissingWordId} key={index}/>
+                autoCapitalize={index == 0 || !array[index - 1] || array[index - 1].endsWith('. ')}
+                id={rowMissingWordId}
+              />
             )
           } else {
             return <Text style={styles.text} key={index}>{element}</Text>
