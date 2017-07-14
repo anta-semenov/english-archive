@@ -3,66 +3,88 @@ import {View, Text, StyleSheet} from 'react-native'
 import {fonts, colors, layout} from '../../../../constants/styleVariables'
 import MissingWord from './missingWord/missingWordConnect'
 
-interface AuditionTextRowProps {
+interface Props {
   textRow: string,
   currentMissingWordId: number
 }
 
-interface State {
-  elements: string[],
-  rowMissingWordId: number
+type misingWordElement = {
+  id: number,
+  autoCapitalize: boolean
 }
 
-class AuditionTextRow extends React.Component<AuditionTextRowProps, State> {
-  constructor(props: AuditionTextRowProps) {
+interface State {
+  elements: Array<string | misingWordElement>,
+  rowMissingWordIds: number[]
+}
+
+class AuditionTextRow extends React.Component<{}, Props, State> {
+  constructor(props: Props) {
     super(props)
 
-    let elements: string[] = []
-    let rowMissingWordId = -2
-
     const {textRow} = props
-    if (/#\d*/.test(textRow)) {
-      elements = /(.*)(?=#)(#\d*)(.*)/.exec(textRow).slice(1)
-      rowMissingWordId = +/#(\d*)/.exec(elements[1])[1]
-    } else if (textRow === '<empyString>') {
-      elements.push('')
-    } else {
-      elements.push(textRow)
-    }
+
+    const rowMissingWordIds: number[] = []
+    const elements = textRow.split(' ').map((element, index, array) => {
+      if (/#(\d*)/.test(element)) {
+        const id = +/#(\d*)/.exec(element)[1]
+        rowMissingWordIds.push(id)
+        const autoCapitalize = index == 0 || array[index - 1].endsWith('. ')
+
+        return ({id, autoCapitalize})
+      } else {
+        let result = element
+
+        if (index !== (array.length - 1)) {
+          result = `${result} `
+        }
+
+        if (index !== 0 && /#(\d*)/.test(array[index-1])) {
+          result = ` ${result}`
+        }
+
+        if (element === '<empyString>') {
+          result = ''
+        }
+
+        return result
+      }
+    })
 
     this.state = {
       elements,
-      rowMissingWordId
+      rowMissingWordIds
     }
   }
 
-  shouldComponentUpdate({currentMissingWordId}) {
-    const {rowMissingWordId} = this.state
+  shouldComponentUpdate({currentMissingWordId}: Props) {
+    const {rowMissingWordIds} = this.state
     const {currentMissingWordId: previousCurrentMissingWordId} = this.props
 
-    if (currentMissingWordId == rowMissingWordId ||
-        previousCurrentMissingWordId == rowMissingWordId) {
+    if (rowMissingWordIds.includes(currentMissingWordId) ||
+        rowMissingWordIds.includes(previousCurrentMissingWordId)) {
       return true
     }
     return false
   }
 
   render() {
-    const {elements, rowMissingWordId} = this.state
+    const {elements} = this.state
 
     return(
       <View style={styles.rowContainer}>
-        {elements.map((element, index, array) => {
-          if (/#\d*/.test(element)) {
+        {elements.map((element, index) => {
+          if (typeof element === 'string') {
+            return <Text style={styles.text} key={index}>{element}</Text>
+          } else {
+            const {id, autoCapitalize} = element
             return (
               <MissingWord
                 key={index}
-                autoCapitalize={index == 0 || !array[index - 1] || array[index - 1].endsWith('. ')}
-                id={rowMissingWordId}
+                autoCapitalize={autoCapitalize}
+                id={id}
               />
             )
-          } else {
-            return <Text style={styles.text} key={index}>{element}</Text>
           }
         })}
       </View>
