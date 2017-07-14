@@ -1,7 +1,6 @@
 import React from 'react'
-import {FlatList, StyleSheet, KeyboardAvoidingView, View} from 'react-native'
+import {FlatList, StyleSheet, KeyboardAvoidingView} from 'react-native'
 import AuditionTextRow from './AuditionTextRow'
-import {layout} from '../../../../constants/styleVariables'
 import AuditionButtonsPane from './auditionButtonsPane/auditionButtonsPaneConnect'
 
 type AuditionTextProps = {
@@ -12,15 +11,13 @@ type AuditionTextProps = {
 
 const AuditionText = ({textWithMissings, currentMissingWordId, currentMissingWordAnswer}: AuditionTextProps) => (
   <KeyboardAvoidingView behavior='padding' style={styles.container}>
-    <View style={{flex: 1}}>
-      <FlatList
-        style={{flex: 1}}
-        data={textWithMissings}
-        keyExtractor={(item, index) => index}
-        extraData={`${currentMissingWordId}${currentMissingWordAnswer}`}
-        renderItem={({item}) => <AuditionTextRow textRow={item} currentMissingWordId={currentMissingWordId}/>}
-      />
-    </View>
+    <FlatList
+      style={{flex: 1}}
+      data={textWithMissings}
+      keyExtractor={(item, index) => index}
+      extraData={`${currentMissingWordId}${currentMissingWordAnswer}`}
+      renderItem={({item}) => <AuditionTextRow textRow={item} currentMissingWordId={currentMissingWordId}/>}
+    />
     <AuditionButtonsPane/>
   </KeyboardAvoidingView>
 )
@@ -33,7 +30,6 @@ const styles = StyleSheet.create({
     right: 0,
     bottom: 0,
     top: 56,
-    paddingHorizontal: layout.spacer
   }
 })
 

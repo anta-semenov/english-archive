@@ -40,7 +40,7 @@ export const fonts: Fonts = {
       navBarTitleSize: 17,
       navBarTitleWeight: '600',
       auditionTextSize: 17,
-      inputCharWidth: 8
+      inputCharWidth: 12
     },
     android: {
       listItemTitleSize: 15,
@@ -49,25 +49,34 @@ export const fonts: Fonts = {
       navBarTitleSize: 18,
       navBarTitleWeight: '500',
       auditionTextSize: 15,
-      inputCharWidth: 8
+      inputCharWidth: 12
     }
   })
 }
 
 interface Layout {
   spacer: number,
-  auditionButtonsHeight: number
+  halfSpacer: number,
+  borderRadius: number,
+  auditionButtonsHeight: number,
+  missingWordHeight: number
 }
 
 export const layout: Layout = {
   ...Platform.select({
     ios: {
       spacer: 8,
-      auditionButtonsHeight: 36
+      halfSpacer: 4,
+      borderRadius: 4,
+      auditionButtonsHeight: 36,
+      missingWordHeight: 28.5
     },
     android: {
       spacer: 16,
-      auditionButtonsHeight: 54
+      halfSpacer: 8,
+      borderRadius: 0,
+      auditionButtonsHeight: 54,
+      missingWordHeight: 28.5
     }
   })
 }

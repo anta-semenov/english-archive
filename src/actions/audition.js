@@ -84,11 +84,12 @@ export const loadUserSongs = () => async (dispatch: Dispatch, getState) => {
   }
 }
 
-export const selectMissingWord = id => ({type: actionTypes.SELECT_MISSING_WORD, id})
+export const selectMissingWord = (id: number) => ({type: actionTypes.SELECT_MISSING_WORD, id})
 export const unselectMissingWord = () => ({type: actionTypes.SELECT_MISSING_WORD, id: -1})
-export const setMissingWordAnswer = (id, answer) => ({type: actionTypes.SET_MISSING_WORD_ANSWER, answer, id})
+export const setMissingWordAnswer = (id: number, answer: string) => ({type: actionTypes.SET_MISSING_WORD_ANSWER, answer, id})
+export const setMissingWordWidth = (id: number, width: number) => ({type: actionTypes.SET_MISSING_WORD_WIDTH, id, width})
 
-export const checkMissingWord = (id, afterCheckSuccess, afterCheckFailure) => (dispatch, getState) => {
+export const checkMissingWord = (id: number, afterCheckSuccess: () => {}, afterCheckFailure: () => {}) => (dispatch, getState) => {
   dispatch({type: actionTypes.CHECK_MISSING_WORD, id})
   const {correct, checked} = getAuditionMissingWordById(getState(), id)
 

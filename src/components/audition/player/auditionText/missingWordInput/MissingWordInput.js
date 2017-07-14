@@ -1,20 +1,25 @@
 import React from 'react'
 import {TextInput, StyleSheet} from 'react-native'
 import {colors, fonts, layout} from '../../../../../constants/styleVariables'
+import type {MissingWordType} from '../../../../../services/lyrics'
+
+interface Props {
+  missingWordData: MissingWordType,
+  onInputChange: (value: string) => void,
+  autoCapitalaize: boolean
+}
 
 const MissingWordInput = ({missingWordData, onInputChange, autoCapitalaize}: Props) => {
-  const {word, answer, checked, correct} = missingWordData
+  const {answer, checked, correct} = missingWordData
   const inputStyle = {
-    //width: word.length * fonts.inputCharWidth + layout.spacer * 2,
-    color: !checked ? colors.second : correct ? colors.right : colors.wrong,
-    fontWeight: !checked ? 'bold' : 'normal'
+    color: !checked ? colors.second : correct ? colors.right : colors.wrong
   }
 
   return (
     <TextInput
       value={answer}
       onChangeText={onInputChange}
-      style={[styles.input, inputStyle]}
+      style={[styles.textInput, inputStyle]}
       autoFocus
       autoCapitalize={autoCapitalaize ? 'sentences' : 'none'}
     />
@@ -23,13 +28,9 @@ const MissingWordInput = ({missingWordData, onInputChange, autoCapitalaize}: Pro
 
 const styles = StyleSheet.create({
   textInput: {
-    backgroundColor: colors.firstLight,
-    borderRadius: layout.spacer / 4,
-    fontSize: fonts.auditionTextSize,
     textAlign: 'center',
-    position: 'relative',
-    marginHorizontal: layout.spacer,
-    paddingHorizontal: layout.spacer
+    fontSize: fonts.auditionTextSize,
+    width: '100%'
   }
 })
 

@@ -1,11 +1,16 @@
 import React from 'react'
 import {Text, StyleSheet} from 'react-native'
-import {colors, fonts, layout} from '../../../../../constants/styleVariables'
+import {colors, fonts} from '../../../../../constants/styleVariables'
+import type {MissingWordType} from '../../../../../services/lyrics'
 
-const MissingWordLabel = ({missingWordData, selectMissingWord}) => {
+interface Props {
+  missingWordData: MissingWordType,
+  selectMissingWord: () => void
+}
+
+const MissingWordLabel = ({missingWordData, selectMissingWord}: Props) => {
   const {answer, checked, correct, word} = missingWordData
   const labelStyle = {
-    //width: word.length * fonts.inputCharWidth + layout.spacer * 2,
     color: !checked ? colors.second : correct ? colors.right : colors.wrong
   }
 
@@ -19,19 +24,11 @@ const MissingWordLabel = ({missingWordData, selectMissingWord}) => {
   )
 }
 
-MissingWordLabel.propTypes = {
-
-}
-
 const styles = StyleSheet.create({
   label: {
-    backgroundColor: colors.firstLight,
-    borderRadius: layout.spacer / 2,
-    position: 'relative',
     fontSize: fonts.auditionTextSize,
     textAlign: 'center',
-    marginHorizontal: layout.spacer,
-    paddingHorizontal: layout.spacer
+    width: '100%'
   }
 })
 

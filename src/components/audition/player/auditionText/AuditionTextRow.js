@@ -1,7 +1,8 @@
 import React from 'react'
-import {View, Text, StyleSheet, Dimensions} from 'react-native'
+import {View, Text, StyleSheet} from 'react-native'
 import MissingWordLabel from './missingWordLabel/missingWordLabelConnect'
 import MissingWordInput from './missingWordInput/missingWordInputConnect'
+import MissingWordContainer from './MissingWordContainer'
 import {fonts, colors, layout} from '../../../../constants/styleVariables'
 
 interface AuditionTextRowProps {
@@ -78,7 +79,10 @@ const styles = StyleSheet.create({
   rowContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    width: '100%'
+    width: '100%',
+    paddingHorizontal: layout.spacer,
+    paddingVertical: layout.halfSpacer,
+    alignItems: 'center',
   },
   text: {
     fontSize: fonts.auditionTextSize,
