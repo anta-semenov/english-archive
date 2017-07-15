@@ -3,7 +3,12 @@ import {Path} from 'react-native-svg'
 import SVGIconWrapper from './SVGIconWrapper'
 import {colors} from '../../../constants/styleVariables'
 
-const SearchIcon = ({onPress, style}) => (
+interface Props {
+  onPress: () => void,
+  style: object | number
+}
+
+const SearchIcon = ({onPress, style}: Props) => (
   <SVGIconWrapper
     style={[{width: 20, height: 20}, style]}
     viewBox='0 0 24 24'
@@ -15,9 +20,5 @@ const SearchIcon = ({onPress, style}) => (
     />
   </SVGIconWrapper>
 )
-
-SearchIcon.propTypes = {
-  onPress: React.PropTypes.func
-}
 
 export default SearchIcon

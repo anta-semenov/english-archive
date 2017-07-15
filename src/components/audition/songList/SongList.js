@@ -4,8 +4,21 @@ import SongItem from './SongItem'
 import SongSectionHeader from './SongSectionHeader'
 import AuditionPLayer from '../player/playerConnect'
 import {colors} from '../../../constants/styleVariables'
+import type {AudioItem} from '../../../types'
 
-class SongList extends React.PureComponent {
+interface audioItemsSection {
+  [id: string]: AudioItem
+}
+
+interface Props {
+  data: audioItemsSection
+}
+
+interface State {
+  playerIsOpen: boolean,
+}
+
+class SongList extends React.PureComponent<{}, Props, State> {
   constructor(props) {
     super(props)
 
@@ -71,10 +84,6 @@ class SongList extends React.PureComponent {
       </View>
     )
   }
-}
-
-SongList.propTypes = {
-
 }
 
 const styles = StyleSheet.create({

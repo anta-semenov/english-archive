@@ -1,8 +1,13 @@
 import React from 'react'
 import {Text, StyleSheet} from 'react-native'
 import {colors, fonts, layout} from '../../../constants/styleVariables'
+import type {AudioItem} from '../../../types'
 
-const SongSectionHeader = ({data}) => {
+interface Props {
+  data: AudioItem[]
+}
+
+const SongSectionHeader = ({data}: Props) => {
   let title = ''
 
   if (data[0] && data[1] ) {
@@ -16,10 +21,6 @@ const SongSectionHeader = ({data}) => {
       {title || ''}
     </Text>
   )
-}
-
-SongSectionHeader.propTypes = {
-
 }
 
 const styles = StyleSheet.create({

@@ -3,7 +3,13 @@ import {Path, Text} from 'react-native-svg'
 import {SVGIconWrapper} from '../../common/icons'
 import {colors} from '../../../constants/styleVariables'
 
-const RepeatIcon = ({onPress, repeatInterval, style}) => (
+interface Props {
+  onPress: () => void,
+  style: object | number,
+  repeatInterval: number
+}
+
+const RepeatIcon = ({onPress, repeatInterval, style}: Props) => (
   <SVGIconWrapper
     onPress={onPress}
     style={[{width: 40, height: 40}, style]}
@@ -31,9 +37,5 @@ const RepeatIcon = ({onPress, repeatInterval, style}) => (
     />
   </SVGIconWrapper>
 )
-
-RepeatIcon.propTypes = {
-  onPress: React.PropTypes.func
-}
 
 export default RepeatIcon

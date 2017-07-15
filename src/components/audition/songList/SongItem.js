@@ -2,10 +2,16 @@ import React from 'react'
 import {View, TouchableOpacity, Text, StyleSheet} from 'react-native'
 import {AlbumArtwork} from '../../common'
 import {colors, fonts, layout} from '../../../constants/styleVariables'
+import type {AudioItem} from '../../../types'
 
 const artworkSize = fonts.listItemTitleSize + 2 * fonts.listItemSubtitleSize + 2 * layout.spacer
 
-const SongItem = ({data: {artist, title, album, id}, onPress}) => (
+interface Props {
+  data: AudioItem,
+  onPress: () => void
+}
+
+const SongItem = ({data: {artist, title, album, id}, onPress}: Props) => (
   <TouchableOpacity onPress={onPress}>
     <View style={styles.container}>
       <AlbumArtwork mediaItemId={id} style={styles.artwork}/>
@@ -17,10 +23,6 @@ const SongItem = ({data: {artist, title, album, id}, onPress}) => (
     </View>
   </TouchableOpacity>
 )
-
-SongItem.propTypes = {
-
-}
 
 const styles = StyleSheet.create({
   container: {

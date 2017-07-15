@@ -3,7 +3,12 @@ import {Path} from 'react-native-svg'
 import {SVGIconWrapper} from '../../common/icons'
 import {colors} from '../../../constants/styleVariables'
 
-const PauseIcon = ({onPress, style}) => (
+interface Props {
+  onPress: () => void,
+  style: object | number
+}
+
+const PauseIcon = ({onPress, style}: Props) => (
   <SVGIconWrapper
     onPress={onPress}
     style={[{width: 40, height: 40}, style]}
@@ -32,9 +37,5 @@ const PauseIcon = ({onPress, style}) => (
     />
   </SVGIconWrapper>
 )
-
-PauseIcon.propTypes = {
-  onPress: React.PropTypes.func
-}
 
 export default PauseIcon

@@ -3,7 +3,12 @@ import {Path} from 'react-native-svg'
 import {SVGIconWrapper} from '../../common/icons'
 import {colors} from '../../../constants/styleVariables'
 
-const PlayIcon = ({onPress, style}) => (
+interface Props {
+  onPress: () => void,
+  style: object | number
+}
+
+const PlayIcon = ({onPress, style}: Props) => (
   <SVGIconWrapper
     onPress={onPress}
     style={[{width: 40, height: 40}, style]}
@@ -28,9 +33,5 @@ const PlayIcon = ({onPress, style}) => (
     />
   </SVGIconWrapper>
 )
-
-PlayIcon.propTypes = {
-  onPress: React.PropTypes.func
-}
 
 export default PlayIcon

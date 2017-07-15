@@ -7,7 +7,19 @@ import {CancelIcon} from '../../common'
 import AuditionText from './auditionText/AuditionText'
 import {colors} from '../../../constants/styleVariables'
 
-const Player = ({pause, repeat, stop, isPlaying, resume, repeatInterval, textWithMissings, currentMissingWordId, currentMissingWordAnswer}) => (
+interface Props {
+  pause: () => void,
+  repeat: () => void,
+  stop: () => void,
+  resume: () => void,
+  isPlaying: boolean,
+  repeatInterval: number,
+  textWithMissings: string[],
+  currentMissingWordId: number,
+  currentMissingWordAnswer: string
+}
+
+const Player = ({pause, repeat, stop, isPlaying, resume, repeatInterval, textWithMissings, currentMissingWordId, currentMissingWordAnswer}: Props) => (
   <View style={styles.container}>
     <AuditionText
       textWithMissings={textWithMissings}
@@ -24,10 +36,6 @@ const Player = ({pause, repeat, stop, isPlaying, resume, repeatInterval, textWit
     </View>
   </View>
 )
-
-Player.propTypes = {
-
-}
 
 const styles = StyleSheet.create({
   container: {

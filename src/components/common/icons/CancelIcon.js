@@ -3,7 +3,12 @@ import {Path} from 'react-native-svg'
 import SVGIconWrapper from './SVGIconWrapper'
 import {colors} from '../../../constants/styleVariables'
 
-const CancelIcon = ({onPress, style}) => (
+interface Props {
+  onPress: () => void,
+  style: object | number
+}
+
+const CancelIcon = ({onPress, style}: Props) => (
   <SVGIconWrapper
     onPress={onPress}
     style={[{width: 20, height: 20}, style]}
@@ -30,9 +35,5 @@ const CancelIcon = ({onPress, style}) => (
     />
   </SVGIconWrapper>
 )
-
-CancelIcon.propTypes = {
-  onPress: React.PropTypes.func
-}
 
 export default CancelIcon
