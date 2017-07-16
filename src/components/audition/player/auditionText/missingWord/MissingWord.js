@@ -22,6 +22,8 @@ class MissingWord extends React.PureComponent<{}, Props, {}> {
 
     const width = word.length * fonts.inputCharWidth + layout.halfSpacer * 2
 
+    const onMissingWordPress = ({nativeEvent}) => {console.log('nativeEvent', nativeEvent);selectMissingWord(nativeEvent.pageY)}
+
     return(
       <View style={[styles.container, {width}]}>
         {
@@ -34,7 +36,7 @@ class MissingWord extends React.PureComponent<{}, Props, {}> {
             autoCapitalize={autoCapitalaize ? 'sentences' : 'none'}
           /> :
           <Text
-            onPress={selectMissingWord}
+            onPress={onMissingWordPress}
             style={[styles.text, textStyle]}
           >
             {checked && answer ? answer : '?'.repeat(word.length)}

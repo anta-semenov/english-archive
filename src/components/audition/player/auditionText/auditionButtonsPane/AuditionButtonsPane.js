@@ -50,10 +50,10 @@ const styles = StyleSheet.create({
     padding: layout.spacer
   },
   buttonRight: {
-    marginLeft: 1
+    marginLeft: 0.5
   },
   buttonLeft: {
-    marginRight: 1
+    marginRight: 0.5
   }
 })
 

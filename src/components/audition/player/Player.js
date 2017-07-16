@@ -5,7 +5,7 @@ import PauseIcon from './PauseIcon'
 import RepeatIcon from './RepeatIcon'
 import {CancelIcon} from '../../common'
 import AuditionText from './auditionText/AuditionText'
-import {colors} from '../../../constants/styleVariables'
+import {colors, layout} from '../../../constants/styleVariables'
 
 interface Props {
   pause: () => void,
@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     alignItems: 'center',
     position: 'absolute',
-    height: 56,
+    height: layout.playerControlsHeight,
     top: 0,
     left: 0,
     right: 0,

@@ -59,7 +59,10 @@ interface Layout {
   halfSpacer: number,
   borderRadius: number,
   auditionButtonsHeight: number,
-  missingWordHeight: number
+  missingWordHeight: number,
+  keyboardHeight: number,
+  playerControlsHeight: number,
+  missingWordScrollOffset: number
 }
 
 export const layout: Layout = {
@@ -69,14 +72,20 @@ export const layout: Layout = {
       halfSpacer: 4,
       borderRadius: 4,
       auditionButtonsHeight: 36,
-      missingWordHeight: 28.5
+      missingWordHeight: 28.5,
+      keyboardHeight: 260,
+      playerControlsHeight: 56,
+      missingWordScrollOffset: 90 
     },
     android: {
       spacer: 16,
       halfSpacer: 8,
       borderRadius: 0,
       auditionButtonsHeight: 54,
-      missingWordHeight: 28.5
+      missingWordHeight: 28.5,
+      keyboardHeight: 260,
+      playerControlsHeight: 56,
+      missingWordScrollOffset: 90 
     }
   })
 }

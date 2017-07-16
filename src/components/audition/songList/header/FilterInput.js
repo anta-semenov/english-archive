@@ -6,7 +6,7 @@ import {colors, fonts, layout} from '../../../../constants/styleVariables'
 type FilterInputProps = {
   filter: number,
   filterOnChange: (value: string) => void,
-  style: Array<StyleSheet>,
+  style: Array<number>,
   refFunc: (React.DOM) => void,
 }
 

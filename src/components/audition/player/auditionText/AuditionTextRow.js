@@ -5,7 +5,8 @@ import MissingWord from './missingWord/missingWordConnect'
 
 interface Props {
   textRow: string,
-  currentMissingWordId: number
+  currentMissingWordId: number,
+  scrollToItem: () => void
 }
 
 type misingWordElement = {
@@ -70,6 +71,7 @@ class AuditionTextRow extends React.Component<{}, Props, State> {
 
   render() {
     const {elements} = this.state
+    const {scrollToItem} = this.props
 
     return(
       <View style={styles.rowContainer}>
@@ -83,6 +85,7 @@ class AuditionTextRow extends React.Component<{}, Props, State> {
                 key={index}
                 autoCapitalize={autoCapitalize}
                 id={id}
+                scrollToItem={scrollToItem}
               />
             )
           }
