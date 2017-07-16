@@ -19,9 +19,9 @@ export const getTextWithMissings = (sourceText: string) => {
   const textWithMissings = sourceText.split(/\n|\r/).map(lyricsString => {
     if (!lyricsString) return '<empyString>'
 
-    const words = lyricsString.split(' ').filter(word => word.length > 3)
+    const words = lyricsString.split(' ').filter(word => word.length >= 3)
 
-    if (words.length < 3 || ((Math.random() * 100) % 3) > 1) {
+    if (words.length < 3 || ((Math.random() * 100) % 5) > 3) {
       return lyricsString
     } else {
       const missWordIndex = Math.trunc(Math.random() * 1000) % words.length
