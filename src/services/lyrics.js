@@ -16,13 +16,12 @@ export type MissingWordType = {
 export const getTextWithMissings = (sourceText: string) => {
   const missingWords = {}
   let missingWordId = 0
-
-  const textWithMissings = sourceText.split('\n').map(lyricsString => {
+  const textWithMissings = sourceText.split(/\n|\r/).map(lyricsString => {
     if (!lyricsString) return '<empyString>'
 
     const words = lyricsString.split(' ').filter(word => word.length > 3)
 
-    if (words.length < 3 || ((Math.random() * 100) % 10) >= 6) {
+    if (words.length < 3 || ((Math.random() * 100) % 3) > 1) {
       return lyricsString
     } else {
       const missWordIndex = Math.trunc(Math.random() * 1000) % words.length
