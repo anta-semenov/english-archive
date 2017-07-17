@@ -31,7 +31,7 @@ class MissingWord extends React.PureComponent<{}, Props, {}> {
             onChangeText={onInputChange}
             style={[styles.text, textStyle]}
             autoFocus
-            autoCapitalize={autoCapitalaize ? 'sentences' : 'none'}
+            autoCapitalize={word.startsWith(word.substr(0, 1).toUpperCase()) ? 'sentences' : 'none'}
           /> :
           <Text
             onPress={({nativeEvent}) => selectMissingWord(nativeEvent.pageY)}
