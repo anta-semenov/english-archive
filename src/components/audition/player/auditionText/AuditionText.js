@@ -22,7 +22,7 @@ class AuditionText extends React.Component<{}, Props, {}> {
     const getY = this.getYmap[index]
     if (this.flatList && typeof getY === 'function') {
       const loacationY = await getY()
-      if (loacationY > (screenHeight - layout.keyboardHeight)) {
+      if (loacationY > (screenHeight - (layout.keyboardHeight + layout.auditionButtonsHeight))) {
         this.flatList.scrollToIndex({
           animated: true,
           index,

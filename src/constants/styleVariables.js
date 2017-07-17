@@ -73,7 +73,7 @@ export const layout: Layout = {
       borderRadius: 4,
       auditionButtonsHeight: 36,
       missingWordHeight: 28.5,
-      keyboardHeight: 300,
+      keyboardHeight: 290,
       playerControlsHeight: 56,
       missingWordScrollOffset: 90
     },
