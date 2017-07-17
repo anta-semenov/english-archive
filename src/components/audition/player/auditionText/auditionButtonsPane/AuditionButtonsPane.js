@@ -5,7 +5,8 @@ import {colors, layout, fonts} from '../../../../../constants/styleVariables'
 interface Props {
   id: number,
   checkMissingWord: () => void,
-  unselectMissingWord: () => void
+  unselectMissingWord: () => void,
+  hint: () => void
 }
 
 class AuditionButtonsPane extends React.PureComponent<{}, Props, {}> {
@@ -16,7 +17,7 @@ class AuditionButtonsPane extends React.PureComponent<{}, Props, {}> {
   }
 
   render() {
-    const {checkMissingWord, unselectMissingWord, id} = this.props
+    const {checkMissingWord, unselectMissingWord, id, hint} = this.props
     let opacity = 1
     let height = layout.auditionButtonsHeight
 
@@ -28,6 +29,7 @@ class AuditionButtonsPane extends React.PureComponent<{}, Props, {}> {
     return(
       <View style={[styles.container, {opacity, height}]}>
         <Text style={[styles.button, styles.buttonLeft]} onPress={unselectMissingWord}>Cancel</Text>
+        <Text style={[styles.button, styles.buttonMiddle]} onPress={hint}>Hint</Text>
         <Text style={[styles.button, styles.buttonRight]} onPress={checkMissingWord}>Check</Text>
       </View>
     )
@@ -54,6 +56,9 @@ const styles = StyleSheet.create({
   },
   buttonLeft: {
     marginRight: 0.5
+  },
+  buttonMiddle: {
+    marginHorizontal: 0.5
   }
 })
 

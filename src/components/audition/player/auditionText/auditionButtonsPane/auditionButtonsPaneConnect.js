@@ -29,15 +29,17 @@ const mapDispatchToProps = (dispatch, {scrollToId}) => {
         }
       }
     )),
-    unselectMissingWord
+    unselectMissingWord,
+    hint: () => dispatch(actions.auditionHint())
   })
 }
 
-const mergeProps = ({id, ids}, dispatchProps, ownProps) => ({
+const mergeProps = ({id, ids}, {checkMissingWord, unselectMissingWord, hint}, ownProps) => ({
   ...ownProps,
   id,
-  checkMissingWord: dispatchProps.checkMissingWord(id, ids),
-  unselectMissingWord: dispatchProps.unselectMissingWord
+  checkMissingWord: checkMissingWord(id, ids),
+  unselectMissingWord,
+  hint
 })
 
 export default connect(mapStateToProps, mapDispatchToProps, mergeProps)(AuditionButtonsPane)

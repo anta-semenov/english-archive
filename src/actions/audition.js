@@ -63,9 +63,9 @@ export const finishAudition = () => (dispatch: Dispatch) => {
 export const loadUserSongs = () => async (dispatch: Dispatch, getState) => {
   const cachedLatModified = await localStorage.getItem(MEDIA_LIBRARY_LAST_MODIFIED)
   const lastModified = await MediaHelper.getMediaLibraryLastModified()
-  const userSongs = getUserSongs(getState())
+  const cachedUserSongs = getUserSongs(getState())
 
-  if (cachedLatModified !== lastModified || Object.keys(userSongs).length === 0) {
+  if (cachedLatModified !== lastModified || Object.keys(cachedUserSongs).length === 0) {
     const songs = await MediaHelper.getUserSongs()
 
     if (songs.length > 0) {
@@ -98,4 +98,24 @@ export const checkMissingWord = (id: number, afterCheckSuccess: () => {}, afterC
   } else if (!correct && typeof afterCheckFailure === 'function') {
     afterCheckFailure()
   }
+}
+
+export const auditionHint = () => (dispatch, getState) => {
+  const state = getState()
+  const currentId = getAuditionCurrentMissingWordId(state)
+  const {word, answer = ''} = getAuditionMissingWordById(state, currentId)
+
+  let i = 0
+  let hint = ''
+  const treshold = word.length - 1
+  while (i < treshold) {
+    if (word[i] === answer[i]) {
+      hint = `${hint}${word[i]}`
+      i++
+    } else {
+      break
+    }
+  }
+
+  dispatch(setMissingWordAnswer(currentId, `${hint}${word[i]}`))
 }
