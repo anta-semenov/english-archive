@@ -9,7 +9,7 @@ import Config from 'react-native-config'
 
 const middleware = [thunk]
 
-if (Config.DEV) {
+if (Config.DEV === 'true') {
   middleware.push(require('redux-logger').default)
 }
 
