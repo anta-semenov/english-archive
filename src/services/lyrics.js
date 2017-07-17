@@ -16,7 +16,7 @@ export type MissingWordType = {
 export const getTextWithMissings = (sourceText: string) => {
   const missingWords = {}
   let missingWordId = 0
-  const textWithMissings = sourceText.split(/\n|\r/).map(lyricsString => {
+  const textWithMissings = sourceText.replace(/\r\n/g, '\n').replace(/\n\r/g, '\n').split(/\n|\r/).map(lyricsString => {
     if (!lyricsString) return '<empyString>'
 
     const words = lyricsString.split(' ').filter(word => word.length >= 3)

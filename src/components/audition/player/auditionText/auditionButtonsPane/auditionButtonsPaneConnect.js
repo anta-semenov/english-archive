@@ -5,28 +5,38 @@ import * as actions from '../../../../../actions/index.js'
 import * as fromReducer from '../../../../../reducer/index.js'
 
 const mapStateToProps = state => ({
-  id: fromReducer.getAuditionCurrentMissingWordId(state)
+  id: fromReducer.getAuditionCurrentMissingWordId(state),
+  ids: fromReducer.getAuditionMissingWordsIds(state)
 })
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch, {scrollToId}) => {
   const unselectMissingWord = () => {
     dispatch(actions.unselectMissingWord())
     Keyboard.dismiss()
   }
 
   return ({
-    checkMissingWord: id => () => dispatch(actions.checkMissingWord(
+    checkMissingWord: (id, ids) => () => dispatch(actions.checkMissingWord(
       id,
-      unselectMissingWord
+      () => {
+        const indexOfId = ids.indexOf(`${id}`)
+        if (indexOfId >= 0 && indexOfId < (ids.length - 1)) {
+          const nextId = +ids[indexOfId + 1]
+          scrollToId(nextId)
+          dispatch(actions.selectMissingWord(nextId))
+        } else {
+          unselectMissingWord()
+        }
+      }
     )),
     unselectMissingWord
   })
 }
 
-const mergeProps = (stateProps, dispatchProps, ownProps) => ({
+const mergeProps = ({id, ids}, dispatchProps, ownProps) => ({
   ...ownProps,
-  ...stateProps,
-  checkMissingWord: dispatchProps.checkMissingWord(stateProps.id),
+  id,
+  checkMissingWord: dispatchProps.checkMissingWord(id, ids),
   unselectMissingWord: dispatchProps.unselectMissingWord
 })
 

@@ -1,8 +1,10 @@
 import React from 'react'
-import {FlatList, StyleSheet, KeyboardAvoidingView} from 'react-native'
+import {FlatList, StyleSheet, KeyboardAvoidingView, Dimensions} from 'react-native'
 import AuditionTextRow from './AuditionTextRow'
 import AuditionButtonsPane from './auditionButtonsPane/auditionButtonsPaneConnect'
 import {layout} from '../../../../constants/styleVariables'
+
+const screenHeight = Dimensions.get('window').height
 
 interface Props {
   textWithMissings: string[],
@@ -13,14 +15,33 @@ interface Props {
 //let flatList
 
 class AuditionText extends React.Component<{}, Props, {}> {
-  scrollToItem = (index: number) => {
-    if (this.flatList) {
-      this.flatList.scrollToIndex({
-        animated: true,
-        index,
-        viewOffset: layout.missingWordScrollOffset
-      })
+  getYmap = {}
+  idToIndexMap = {}
+
+  scrollToItem = async (index: number) => {
+    const getY = this.getYmap[index]
+    if (this.flatList && typeof getY === 'function') {
+      const loacationY = await getY()
+      if (loacationY > (screenHeight - layout.keyboardHeight)) {
+        this.flatList.scrollToIndex({
+          animated: true,
+          index,
+          viewOffset: layout.missingWordScrollOffset
+        })
+      }
     }
+  }
+
+  scrollToId = (id: number) => {
+    this.scrollToItem(this.idToIndexMap[id])
+  }
+
+  registerGetY = (index, getY) => {
+    this.getYmap[index] = getY
+  }
+
+  registerMissingWordIdToIndex = (id, index) => {
+    this.idToIndexMap[id] = index
   }
 
   render() {
@@ -38,11 +59,13 @@ class AuditionText extends React.Component<{}, Props, {}> {
               textRow={item}
               currentMissingWordId={currentMissingWordId}
               scrollToItem={() => this.scrollToItem(index)}
+              registerGetY={getY => this.registerGetY(index, getY)}
+              registerMissingWordIdToIndex={id => this.registerMissingWordIdToIndex(id, index)}
             />
           )}
           ref={ref => {this.flatList = ref}}
         />
-        <AuditionButtonsPane/>
+        <AuditionButtonsPane scrollToId={this.scrollToId}/>
       </KeyboardAvoidingView>
     )
   }

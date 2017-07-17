@@ -6,7 +6,9 @@ import MissingWord from './missingWord/missingWordConnect'
 interface Props {
   textRow: string,
   currentMissingWordId: number,
-  scrollToItem: () => void
+  scrollToItem: () => void,
+  registerGetY: (getY: () => Promise<number>) => void,
+  registerMissingWordIdToIndex: (id: number) => void
 }
 
 type misingWordElement = {
@@ -23,14 +25,17 @@ class AuditionTextRow extends React.Component<{}, Props, State> {
   constructor(props: Props) {
     super(props)
 
-    const {textRow} = props
+    const {textRow, registerGetY, registerMissingWordIdToIndex} = props
+
+    registerGetY(this.getY)
 
     const rowMissingWordIds: number[] = []
     const elements = textRow.split(' ').map((element, index, array) => {
       if (/#(\d*)/.test(element)) {
         const id = +/#(\d*)/.exec(element)[1]
+        registerMissingWordIdToIndex(id)
         rowMissingWordIds.push(id)
-        const autoCapitalize = index == 0 || array[index - 1].endsWith('. ')
+        const autoCapitalize = index === 0 || array[index - 1].endsWith('.')
 
         return ({id, autoCapitalize})
       } else {
@@ -69,12 +74,22 @@ class AuditionTextRow extends React.Component<{}, Props, State> {
     return false
   }
 
+  getY = () => new Promise(resolve => {
+    if (!this.ref) resolve(0)
+
+
+    this.ref.measureInWindow((pageX, pageY) => resolve(pageY))
+  })
+
   render() {
     const {elements} = this.state
     const {scrollToItem} = this.props
 
     return(
-      <View style={styles.rowContainer}>
+      <View
+        style={styles.rowContainer}
+        ref={ref => this.ref = ref}
+      >
         {elements.map((element, index) => {
           if (typeof element === 'string') {
             return <Text style={styles.text} key={index}>{element}</Text>

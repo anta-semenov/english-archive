@@ -31,3 +31,4 @@ export default missingWords
 */
 
 export const getAuditionMissingWordById = (state, id) => state[id] || {}
+export const getAuditionMissingWordsIds = state => Object.keys(state)

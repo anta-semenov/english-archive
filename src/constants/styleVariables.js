@@ -73,9 +73,9 @@ export const layout: Layout = {
       borderRadius: 4,
       auditionButtonsHeight: 36,
       missingWordHeight: 28.5,
-      keyboardHeight: 260,
+      keyboardHeight: 300,
       playerControlsHeight: 56,
-      missingWordScrollOffset: 90 
+      missingWordScrollOffset: 90
     },
     android: {
       spacer: 16,
@@ -85,7 +85,7 @@ export const layout: Layout = {
       missingWordHeight: 28.5,
       keyboardHeight: 260,
       playerControlsHeight: 56,
-      missingWordScrollOffset: 90 
+      missingWordScrollOffset: 90
     }
   })
 }
