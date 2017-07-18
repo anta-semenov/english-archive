@@ -1,1 +1,1 @@
-export const stateVersion = 0
+export const stateVersion = 1

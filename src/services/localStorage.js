@@ -15,7 +15,7 @@ const getItem = async (key: string) => {
 }
 
 const setItem = async (key: string, value: any) => {
-  if (!value || value == null) return
+  //if (!value || value == null) return
 
   const serializedValue = JSON.stringify(value)
   try {
@@ -35,7 +35,7 @@ const removeItem = async (key: string) => {
 
 const clear = async () => {
   try {
-    await AsyncStorage.multiRemove(Object.keys(storageKeys))
+    await AsyncStorage.multiRemove(Object.keys(storageKeys).filter(key => key !== 'default'))
   } catch (e) {
     console.log(e);
   }

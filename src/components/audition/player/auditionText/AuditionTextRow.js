@@ -35,9 +35,8 @@ class AuditionTextRow extends React.Component<{}, Props, State> {
         const id = +/#(\d*)/.exec(element)[1]
         registerMissingWordIdToIndex(id)
         rowMissingWordIds.push(id)
-        const autoCapitalize = index === 0 || array[index - 1].endsWith('.')
 
-        return ({id, autoCapitalize})
+        return ({id})
       } else {
         let result = element
 
@@ -98,7 +97,6 @@ class AuditionTextRow extends React.Component<{}, Props, State> {
             return (
               <MissingWord
                 key={index}
-                autoCapitalize={autoCapitalize}
                 id={id}
                 scrollToItem={scrollToItem}
               />

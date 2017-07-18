@@ -64,8 +64,8 @@ export const loadUserSongs = () => async (dispatch: Dispatch, getState) => {
   const cachedLatModified = await localStorage.getItem(MEDIA_LIBRARY_LAST_MODIFIED)
   const lastModified = await MediaHelper.getMediaLibraryLastModified()
   const cachedUserSongs = getUserSongs(getState())
-
   if (cachedLatModified !== lastModified || Object.keys(cachedUserSongs).length === 0) {
+    
     const songs = await MediaHelper.getUserSongs()
 
     if (songs.length > 0) {
