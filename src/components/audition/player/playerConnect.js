@@ -3,13 +3,18 @@ import {pauseAudition, repeatAudition, finishAudition, resumeAudition} from '../
 import Player from './Player'
 import * as fromReducer from '../../../reducer'
 
-const mapStateToProps = state => ({
-  isPlaying: fromReducer.getAuditionIsPlaying(state),
-  repeatInterval: fromReducer.getRepeatInterval(state),
-  textWithMissings: fromReducer.getAuditionTextWithMissings(state),
-  currentMissingWordId: fromReducer.getAuditionCurrentMissingWordId(state),
-  currentMissingWordAnswer: fromReducer.getAuditionCurrentMissingWordAnswer(state)
-})
+const mapStateToProps = state => {
+  const {status, message} = fromReducer.getAuditionTextStatus(state)
+  return ({
+    isPlaying: fromReducer.getAuditionIsPlaying(state),
+    repeatInterval: fromReducer.getRepeatInterval(state),
+    textWithMissings: fromReducer.getAuditionTextWithMissings(state),
+    currentMissingWordId: fromReducer.getAuditionCurrentMissingWordId(state),
+    currentMissingWordAnswer: fromReducer.getAuditionCurrentMissingWordAnswer(state),
+    textStatus: status,
+    textMessage: message
+  })
+}
 
 const mapDispatchToProps = (dispatch, {closePlayer}) => ({
   pause: () => dispatch(pauseAudition()),

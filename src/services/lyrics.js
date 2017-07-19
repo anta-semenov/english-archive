@@ -46,3 +46,22 @@ export const getTextWithMissings = (sourceText: string) => {
     missingWords
   })
 }
+
+const azLyricsPreffix = 'http://azlyrics.com/lyrics/'
+export const requestLyrics = async (artist: string, title: string): Promise<string> => {
+  const azArtist = artist.toLowerCase().replace(/the|\s|'|"|\.|,|!|\?|-/g, '')
+  const azTitle = title.toLowerCase().replace(/\s|'|"|\.|,|!|\?|-/g, '')
+  const requestString = `${azLyricsPreffix}${azArtist}/${azTitle}.html`
+
+  const request = await fetch(requestString)
+  if (request.status === 200) {
+    const rawHtml: string = await request.text()
+    let text = rawHtml.split(/<!-- Usage of azlyrics\.com.*-->/)[1].split(/<\/div>/)[0]
+
+    text = text.replace(/<br>/g, '\n').replace(/^\n/, '').replace(/<i>\[.*\]<\/i>/g, '').replace(/\n\n/g, '\n')
+    return text
+  } else if (request.status === 404) {
+    const error = new Error(`Can't find lyrics for ${artist} ${title}`)
+    throw error
+  }
+}

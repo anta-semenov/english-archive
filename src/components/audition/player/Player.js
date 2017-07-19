@@ -1,8 +1,9 @@
 import React from 'react'
-import {View, StyleSheet} from 'react-native'
+import {View, StyleSheet, ActivityIndicator, Text} from 'react-native'
 import AuditionText from './auditionText/AuditionText'
 import PlayerControls from './PlayerControls'
-import {colors, layout} from '../../../constants/styleVariables'
+import {colors, fonts, layout} from '../../../constants/styleVariables'
+import type {AuditionTextStatus} from '../../../types'
 
 interface Props {
   pause: () => void,
@@ -13,16 +14,29 @@ interface Props {
   repeatInterval: number,
   textWithMissings: string[],
   currentMissingWordId: number,
-  currentMissingWordAnswer: string
+  currentMissingWordAnswer: string,
+  textStatus: AuditionTextStatus,
+  textMessage: string
 }
 
-const Player = ({pause, repeat, stop, isPlaying, resume, repeatInterval, textWithMissings, currentMissingWordId, currentMissingWordAnswer}: Props) => (
+const Player = ({pause, repeat, stop, isPlaying, resume, repeatInterval, textWithMissings,
+  currentMissingWordId, currentMissingWordAnswer, textStatus, textMessage}: Props) => (
   <View style={styles.container}>
-    <AuditionText
-      textWithMissings={textWithMissings}
-      currentMissingWordId={currentMissingWordId}
-      currentMissingWordAnswer={currentMissingWordAnswer}
-    />
+    {
+      textStatus === 'ready' ?
+      <AuditionText
+        textWithMissings={textWithMissings}
+        currentMissingWordId={currentMissingWordId}
+        currentMissingWordAnswer={currentMissingWordAnswer}
+      /> :
+      <View style={styles.auditionTextMessageContainer}>
+        {
+          textStatus === 'request' &&
+          <ActivityIndicator animating color={colors.secondFade}/>
+        }
+        <Text style={styles.auditionTextMessage}>{textMessage}</Text>
+      </View>
+    }
     <PlayerControls
       pause={pause}
       repeat={repeat}
@@ -40,6 +54,22 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: colors.first,
     position: 'relative'
+  },
+  auditionTextMessageContainer: {
+    flex: 1,
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    bottom: 0,
+    top: 56,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  auditionTextMessage: {
+    color: colors.secondFade,
+    fontSize: fonts.listItemTitleSize,
+    textAlign: 'center',
+    margin: layout.spacer * 2
   }
 })
 

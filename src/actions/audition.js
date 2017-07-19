@@ -5,9 +5,10 @@ import {getRepeatInterval, getUserSongs, getAuditionIsStarted, getAuditionAssetU
   getAuditionCurrentMissingWordId, getAuditionMissingWordById} from '../reducer'
 import {MEDIA_LIBRARY_LAST_MODIFIED} from '../constants/storageKeys'
 import {localStorage} from '../services/localStorage'
-import {getTextWithMissings} from '../services/lyrics'
+import {getTextWithMissings, requestLyrics} from '../services/lyrics'
 import type {MediaHelperType, AudioItem} from '../types/mediaHelper'
 import Config from 'react-native-config'
+import {isNetworkConnected} from '../services/network'
 
 let MediaHelper: MediaHelperType
 if (Config.USE_MEDIA_HELPER_MOCK == 'true') {
@@ -19,21 +20,60 @@ if (Config.USE_MEDIA_HELPER_MOCK == 'true') {
 export const filterSongs = (filter: string) => ({type: actionTypes.SET_AUDITION_FILTER, filter})
 
 export const startAudition = (audioFile: AudioItem) => async (dispatch: Dispatch) => {
-  const fullText = audioFile.lyrics
-  const {missingWords, textWithMissings} = getTextWithMissings(fullText)
+  if (audioFile.lyrics) {
+    const fullText = audioFile.lyrics
+    const {missingWords, textWithMissings} = getTextWithMissings(fullText)
 
-  dispatch({
-    type: actionTypes.INIT_AUDITION,
-    audition: {
-      fullText,
-      missingWords,
-      textWithMissings,
-      assetUrl: audioFile.assetUrl,
-      auditionStarted: false,
-      currentMissingWordId: -1
+    dispatch({
+      type: actionTypes.INIT_AUDITION,
+      audition: {
+        fullText,
+        missingWords,
+        textWithMissings,
+        assetUrl: audioFile.assetUrl,
+        auditionStarted: false,
+        currentMissingWordId: -1,
+      }
+    })
+
+    dispatch(setAuditionTextStatus('ready'))
+  } else {
+    const networkAvailable = await isNetworkConnected()
+    if (networkAvailable) {
+      dispatch({
+        type: actionTypes.INIT_AUDITION,
+        audition: {
+          assetUrl: audioFile.assetUrl,
+          auditionStarted: false,
+          textStatus: 'request',
+          textMessage: 'Didn\'t find lyrics in audio file. Looking for lyrics in internet.'
+        }
+      })
+
+      try {
+        const {artist, title} = audioFile
+        const lyrics = await requestLyrics(artist, title)
+
+        const {missingWords, textWithMissings} = getTextWithMissings(lyrics)
+
+        dispatch({
+          type: actionTypes.INIT_AUDITION_TEXT,
+          fullText: lyrics,
+          textWithMissings,
+          missingWords,
+          currentMissingWordId: -1
+        })
+        dispatch(setAuditionTextStatus('ready', ''))
+      } catch (e) {
+        dispatch(setAuditionTextStatus('error', e.message))
+      }
+    } else {
+      dispatch(setAuditionTextStatus('error', 'Can\'t find lyrics because network connection is unavailable'))
     }
-  })
+  }
 }
+
+export const setAuditionTextStatus = (status: string, message?: string) => ({type: actionTypes.SET_AUDITION_TEXT_STATUS, status, message})
 
 export const pauseAudition = () => dispatch => {
   MediaHelper.pauseSong()
@@ -65,7 +105,7 @@ export const loadUserSongs = () => async (dispatch: Dispatch, getState) => {
   const lastModified = await MediaHelper.getMediaLibraryLastModified()
   const cachedUserSongs = getUserSongs(getState())
   if (cachedLatModified !== lastModified || Object.keys(cachedUserSongs).length === 0) {
-    
+
     const songs = await MediaHelper.getUserSongs()
 
     if (songs.length > 0) {

@@ -57,6 +57,22 @@ Should I just keep on chasin' pavements
 Ohh oh
 
 [Chorus x2]`
+        },
+        {
+          id: '2',
+          artist: 'Artist 1',
+          album: 'Album 1',
+          title: 'Song 1',
+          assetUrl: '123',
+          lyrics: ''
+        },
+        {
+          id: '3',
+          artist: 'The Beatles',
+          album: 'Album 1',
+          title: 'Help!',
+          assetUrl: '123',
+          lyrics: ''
         }
       ]
     }])

@@ -16,7 +16,7 @@ const missingWord: Reducer = (state: MissingWordType = {}, action) => {
   const {answer, word} = state
   switch (action.type) {
     case actionTypes.CHECK_MISSING_WORD:
-      return {...state, checked: true, correct: !!answer && word.toLowerCase().replace(/\.|,/g, '') === answer.toLowerCase().replace(/\.|,/g, '')}
+      return {...state, checked: true, correct: !!answer && word.toLowerCase().replace(/\.|,|\(|\)/g, '') === answer.toLowerCase().replace(/\.|,|\(|\)/g, '')}
     case actionTypes.SET_MISSING_WORD_ANSWER:
       return {...state, answer: action.answer, checked: false}
     default:
@@ -30,5 +30,5 @@ export default missingWords
  Selectors
 */
 
-export const getAuditionMissingWordById = (state, id) => state[id] || {}
-export const getAuditionMissingWordsIds = state => Object.keys(state)
+export const getAuditionMissingWordById = (state = {}, id) => state[id] || {}
+export const getAuditionMissingWordsIds = (state = {}) => Object.keys(state)
