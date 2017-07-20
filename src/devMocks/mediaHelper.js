@@ -73,6 +73,22 @@ Ohh oh
           title: 'Help!',
           assetUrl: '123',
           lyrics: ''
+        },
+        {
+          id: '4',
+          artist: 'John Legend',
+          album: 'Album 1',
+          title: 'Save Room',
+          assetUrl: '123',
+          lyrics: ''
+        },
+        {
+          id: '5',
+          artist: 'Beyonce',
+          album: 'Album 1',
+          title: 'Crazy In love (feat. Jay-Z)',
+          assetUrl: '123',
+          lyrics: ''
         }
       ]
     }])

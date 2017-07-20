@@ -20,7 +20,8 @@ if (Config.USE_MEDIA_HELPER_MOCK == 'true') {
 export const filterSongs = (filter: string) => ({type: actionTypes.SET_AUDITION_FILTER, filter})
 
 export const startAudition = (audioFile: AudioItem) => async (dispatch: Dispatch) => {
-  if (audioFile.lyrics) {
+  
+  if (audioFile.lyrics && /\w+/.test(audioFile.lyrics)) {
     const fullText = audioFile.lyrics
     const {missingWords, textWithMissings} = getTextWithMissings(fullText)
 
