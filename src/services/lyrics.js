@@ -21,7 +21,7 @@ export const getTextWithMissings = (sourceText: string) => {
 
     const words = lyricsString.split(' ').filter(word => word.length >= 3)
 
-    if (words.length < 3 || ((Math.random() * 100) % 5) > 3) {
+    if (words.length < 3 || ((Math.random() * 100) % 7) > 5) {
       return lyricsString
     } else {
       const missWordIndex = Math.trunc(Math.random() * 1000) % words.length
