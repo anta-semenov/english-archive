@@ -2,7 +2,7 @@
 import * as actionTypes from '../constants/actionTypes'
 import {NativeModules} from 'react-native'
 import {getRepeatInterval, getUserSongs, getAuditionIsStarted, getAuditionAssetUrl,
-  getAuditionCurrentMissingWordId, getAuditionMissingWordById} from '../reducer'
+  getAuditionCurrentMissingWordId, getAuditionMissingWordById, getAuditionIsPlaying} from '../reducer'
 import {MEDIA_LIBRARY_LAST_MODIFIED} from '../constants/storageKeys'
 import {localStorage} from '../services/localStorage'
 import {getTextWithMissings, requestLyrics} from '../services/lyrics'
@@ -20,7 +20,7 @@ if (Config.USE_MEDIA_HELPER_MOCK == 'true') {
 export const filterSongs = (filter: string) => ({type: actionTypes.SET_AUDITION_FILTER, filter})
 
 export const startAudition = (audioFile: AudioItem) => async (dispatch: Dispatch) => {
-  
+
   if (audioFile.lyrics && /\w+/.test(audioFile.lyrics)) {
     const fullText = audioFile.lyrics
     const {missingWords, textWithMissings} = getTextWithMissings(fullText)
@@ -93,7 +93,16 @@ export const resumeAudition = () => (dispatch, getState) => {
 }
 
 export const repeatAudition = () => (dispatch, getState) => {
-  MediaHelper.repeatSong(getRepeatInterval(getState()))
+  const state = getState()
+  const isPlaying = getAuditionIsPlaying(state)
+  const repeatInterval = getRepeatInterval(state)
+  MediaHelper.repeatSong(repeatInterval)
+
+  if (!isPlaying) {
+    dispatch({type: actionTypes.PLAY_AUDITION})
+    setTimeout(() => dispatch(pauseAudition()), repeatInterval * 1000)
+  }
+
 }
 
 export const finishAudition = () => (dispatch: Dispatch) => {
